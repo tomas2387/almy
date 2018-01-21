@@ -2,7 +2,7 @@
   "name": "staty",
   "version": "0.0.1",
   "description": "Store for simple state management",
-  "main": "Staty.js",
+  "main": "staty.js",
   "scripts": {
     "test": "mocha"
   },
