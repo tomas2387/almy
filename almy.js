@@ -1,7 +1,7 @@
 ;(function(exports) {
     let state = {},
         listeners = {}
-    exports.Staty = {
+    exports.almy = {
         newInstance: function newInstance() {
             state = {}
             listeners = {}

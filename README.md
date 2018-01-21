@@ -1,6 +1,12 @@
-# staty
+# almy
 The simpliest store for managing the simpliest state in your application, created with TDD.    
 Works in all environments and all browsers.
+
+## Installation
+```
+npm install --save almy
+```
+
 
 ## Methods
 - getState():Object    
@@ -14,12 +20,12 @@ _Subscribes to dispatched events. If someone has dispatched an event before, it 
 
 Including it as a script tag    
 ```html
-<script src="staty.js"></script>
+<script src="almy.js"></script>
 <script>
-  staty.dispatch('WindowWidth', 524)
+  almy.dispatch('WindowWidth', 524)
 </script>
 <script>
-  staty.subscribe('WindowWidth', function(newWidth) {
+  almy.subscribe('WindowWidth', function(newWidth) {
     //Do something with the new width
   })
 </script>
@@ -27,8 +33,8 @@ Including it as a script tag
 
 Using in a node environment
 ```javascript
-const staty = require('staty').Staty
-staty.subscribe('CPU_Usage', function(newCpuUsage) {
+const almy = require('almy').almy
+almy.subscribe('CPU_Usage', function(newCpuUsage) {
     //Do something with the new cpu usage
 })
 ```
