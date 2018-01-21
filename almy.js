@@ -1,5 +1,5 @@
 ;(function(exports) {
-    let state = {},
+    var state = {},
         listeners = {}
     exports.almy = {
         newInstance: function newInstance() {
