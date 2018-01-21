@@ -37,6 +37,9 @@ const almy = require('almy').almy
 almy.subscribe('CPU_Usage', function(newCpuUsage) {
     //Do something with the new cpu usage
 })
+
+//In some other place in your code
+almy.dispatch('CPU_Usage', 9000)
 ```
 
 
