@@ -1,4 +1,5 @@
 # almy
+[![Build Status](https://travis-ci.org/tomas2387/almy.svg?branch=master)](https://travis-ci.org/tomas2387/almy)    
 The simpliest store for managing the simpliest state in your application, created with TDD.    
 Works in all environments and all browsers.
 
