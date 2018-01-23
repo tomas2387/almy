@@ -1,0 +1,50 @@
+<!doctype>
+<html>
+
+<head>
+    <title>Test</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+</head>
+
+<body>
+    <div id="mocha"></div>
+    <script src="../almy.js"></script>
+    <script>
+        mocha.setup('tdd');
+        assert = chai.assert;
+
+        suite('almyBrowser', () => {
+            setup(() => almy.newInstance())
+
+            test('getStateWhenCalledShouldReturnTheState', () => {
+                const state = almy.getState()
+                assert.deepEqual({}, state)
+            })
+            test('dispatchWhenCalledShouldTriggerStateChanges', () => {
+                almy.dispatch('VideoVolume', 56)
+                const beforeState = almy.getState()
+                assert.deepEqual({
+                    VideoVolume: 56
+                }, beforeState, 'dipatch does not trigger state changes')
+            })
+            test('subscribeWhenCalledShouldBeCalledWhenStateChanges', (done) => {
+                almy.subscribe('VideoVolume', (newVolume) => {
+                    try {
+                        assert.equal(newVolume, 56)
+                        done()
+                    } catch (e) {
+                        done(e)
+                    }
+                })
+                almy.dispatch('VideoVolume', 56)
+            })
+        })
+
+        mocha.run();
+    </script>
+</body>
+
+</html>
