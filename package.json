@@ -4,7 +4,8 @@
   "description": "Store for a simple state management",
   "main": "almy.js",
   "scripts": {
-    "test": "mocha && mocha-chrome ./test/browserTest.html --mocha",
+    "test": "mocha",
+    "test:browser": "mocha-chrome ./test/browserTest.html --mocha",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coverage:local": "nyc npm test && nyc report --reporter=html"
   },
