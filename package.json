@@ -1,6 +1,6 @@
 {
   "name": "almy",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Store for a simple state management",
   "main": "almy.js",
   "scripts": {
