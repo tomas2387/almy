@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
-    "coverage:local": "nyc npm test && nyc report --reporter=html"
+    "coverage:local": "nyc npm test && nyc report --reporter=html",
+    "pretest": "standard --fix"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "chai": "^4.1.2",
     "coveralls": "^3.0.0",
     "mocha": "^5.0.0",
-    "nyc": "^11.4.1"
+    "nyc": "^11.4.1",
+    "standard": "^10.0.3"
   }
 }
