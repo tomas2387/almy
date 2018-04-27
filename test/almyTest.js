@@ -6,7 +6,10 @@ const { assert } = require('chai')
 const almy = require(`${__dirname}/../almy`).almy
 
 suite('almy', () => {
-  setup(() => almy.newInstance())
+  setup(() => {
+    almy.newInstance()
+    checkStateIsClean()
+  })
 
   test('getStateWhenCalledShouldReturnTheState', () => {
     const state = almy.getState()
@@ -22,7 +25,6 @@ suite('almy', () => {
   ]
   invalidKeysValues.forEach((invalidKey, index) => {
     test(`[#${index}]dispatchWhenCalledWithInvalidKeyShouldNotMutateTheState[key(${invalidKey})]`, () => {
-      checkStateIsClean()
       almy.dispatch(invalidKey, 56)
       const beforeState = almy.getState()
       assert.deepEqual({}, beforeState, 'dispatch with empty key is triggering state changes')
@@ -30,14 +32,12 @@ suite('almy', () => {
   })
 
   test('dispatchWhenCalledShouldTriggerStateChanges', () => {
-    checkStateIsClean()
     almy.dispatch('VideoVolume', 56)
     const beforeState = almy.getState()
     assert.deepEqual({VideoVolume: 56}, beforeState, 'dipatch does not trigger state changes')
   })
 
   test('dispatchWhenCalledTwiceShouldTriggerBothStateChanges', () => {
-    checkStateIsClean()
     almy.dispatch('VideoVolume', 56)
     almy.dispatch('VideoVolume', 100)
     const beforeState = almy.getState()
@@ -45,24 +45,21 @@ suite('almy', () => {
   })
 
   test('subscribeWhenCalledShouldBeCalledWhenStateChanges', (done) => {
-    checkStateIsClean()
     almy.subscribe('VideoVolume', checkValueAndCall(done, 56))
     almy.dispatch('VideoVolume', 56)
   })
 
   test('subscribeWhenCalledWithStateSetShouldBeCalledBackInmmeditely', (done) => {
-    checkStateIsClean()
     almy.dispatch('VideoVolume', 56)
     almy.subscribe('VideoVolume', checkValueAndCall(done, 56))
   })
 
   test('subscribeWhenCalledMultipleTimesShouldCalledAllListeners', (done) => {
-    checkStateIsClean()
-    const firstListener = new Promise((resolve, reject) =>
+    const firstListener = new Promise((resolve) =>
             almy.subscribe('VideoVolume', checkValueAndCall(resolve, 56)))
-    const secondListener = new Promise((resolve, reject) =>
+    const secondListener = new Promise((resolve) =>
             almy.subscribe('VideoVolume', checkValueAndCall(resolve, 56)))
-    const thirdListener = new Promise((resolve, reject) =>
+    const thirdListener = new Promise((resolve) =>
             almy.subscribe('VideoVolume', checkValueAndCall(resolve, 56)))
 
     almy.dispatch('VideoVolume', 56)
