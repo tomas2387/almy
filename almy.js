@@ -2,7 +2,7 @@
   var state = {}
   var listeners = {}
   exports.almy = {
-    newInstance: function () {
+    create: function () {
       state = {}
       listeners = {}
     },

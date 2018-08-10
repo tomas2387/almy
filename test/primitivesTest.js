@@ -4,7 +4,7 @@ suite('almy with primitives', () => {
   const { almy } = require(`${__dirname}/../../almy`)
 
   setup(() => {
-    almy.newInstance()
+    almy.create()
   })
 
   test('getStateWhenCalledShouldReturnTheState', () => {

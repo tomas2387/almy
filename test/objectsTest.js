@@ -8,7 +8,7 @@ suite('almy with objects', () => {
   } = require(`${__dirname}/../../almy`)
 
   setup(() => {
-    almy.newInstance()
+    almy.create()
   })
 
   test('WhenDispatchedWithAnObjectShouldSaveThatObjectInTheState', () => {
