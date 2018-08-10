@@ -6,7 +6,9 @@
   "scripts": {
     "test": "nyc mocha && nyc report --reporter=text-lcov | coveralls",
     "test:local": "mocha",
-    "pretest": "standard --fix"
+    "pretest": "standard --fix",
+    "minify": "uglifyjs --output almy.min.js --compress --mangle -- almy.js",
+    "prepublish": "npm run minify"
   },
   "repository": {
     "type": "git",
@@ -30,6 +32,7 @@
     "coveralls": "^3.0.2",
     "mocha": "^5.2.0",
     "nyc": "^13.0.1",
-    "standard": "^11.0.1"
+    "standard": "^11.0.1",
+    "uglify-js": "^3.4.7"
   }
 }

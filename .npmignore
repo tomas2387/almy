@@ -1,0 +1,7 @@
+.idea
+node_modules
+coverage
+.nyc_output
+.coveralls.yml
+test
+.travis.yml
