@@ -21,7 +21,9 @@
       }
       if (typeof value === 'object') {
         for(var prop in value) {
-          state[key+'->'+prop] = value[prop]
+          if (value.hasOwnProperty(prop)) { 
+            state[key+'->'+prop] = value[prop]
+          }
         }
       }
       if (/\->/.test(key)) {
