@@ -9,34 +9,36 @@
     getState: function (key) {
       return key ? state[key] : state
     },
-    dispatch: function (key, value) {
+    dispatch: function (key, value, doNotOptimize, doNotChainDispatch) {
       if (!key || typeof key !== 'string') {
         return
       }
-      if (state[key] === value) return
+      if (state[key] === value && !doNotOptimize) return
       state[key] = value
       if (listeners[key]) {
         for (var i = 0; i < listeners[key].length; ++i) {
           listeners[key][i](value)
         }
       }
-      if (typeof value === 'object') {
+      if (typeof value === 'object' && !doNotChainDispatch) {
         for (var prop in value) {
           if (value.hasOwnProperty(prop)) {
-            state[key + '->' + prop] = value[prop]
+            this.dispatch(key + '->' + prop, value[prop], doNotOptimize, true)
           }
         }
       }
-      if (/->/.test(key)) {
+      if (/->/.test(key) && !doNotChainDispatch) {
         var parentAndChild = key.split('->')
         var parent = parentAndChild[0]
         var child = parentAndChild[1]
-        var objectToDispatch = state[parent]
-        if (typeof objectToDispatch === 'undefined') {
-          objectToDispatch = {}
+        if (typeof state[parent] === 'undefined') {
+          var objectToDispatch = {}
+          objectToDispatch[child] = value
+          this.dispatch(parent, objectToDispatch, true, true)
+        } else {
+          state[parent][child] = value
+          this.dispatch(parent, state[parent], true, true)
         }
-        objectToDispatch[child] = value
-        this.dispatch(parent, objectToDispatch)
       }
     },
     subscribe: function (key, callback) {
