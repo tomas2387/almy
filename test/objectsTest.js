@@ -21,7 +21,7 @@ suite('almy with objects', () => {
       src: 'https://video.com/vid.mp4',
       volume: 45
     },
-    almy.getState('video')
+    almy.state('video')
     )
   })
 

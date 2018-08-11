@@ -6,7 +6,7 @@
       state = {}
       listeners = {}
     },
-    getState: function (key) {
+    state: function (key) {
       return key ? state[key] : state
     },
     dispatch: function (key, value, doNotOptimize, doNotChainDispatch) {

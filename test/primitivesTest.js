@@ -8,7 +8,7 @@ suite('almy with primitives', () => {
   })
 
   test('getStateWhenCalledShouldReturnTheState', () => {
-    const state = almy.getState()
+    const state = almy.state()
     assert.deepEqual({}, state)
   })
 
@@ -22,21 +22,21 @@ suite('almy with primitives', () => {
   invalidKeysValues.forEach((invalidKey, index) => {
     test(`[#${index}]dispatchWhenCalledWithInvalidKeyShouldNotMutateTheState[key(${invalidKey})]`, () => {
       almy.dispatch(invalidKey, 56)
-      const beforeState = almy.getState()
+      const beforeState = almy.state()
       assert.deepEqual({}, beforeState, 'dispatch with empty key is triggering state changes')
     })
   })
 
   test('dispatchWhenCalledShouldTriggerStateChanges', () => {
     almy.dispatch('VideoVolume', 56)
-    const beforeState = almy.getState()
+    const beforeState = almy.state()
     assert.deepEqual({VideoVolume: 56}, beforeState, 'dispatch is not triggering state changes')
   })
 
   test('dispatchWhenCalledTwiceShouldTriggerBothStateChanges', () => {
     almy.dispatch('VideoVolume', 56)
     almy.dispatch('VideoVolume', 100)
-    const beforeState = almy.getState()
+    const beforeState = almy.state()
     assert.deepEqual({VideoVolume: 100}, beforeState, 'dispatch is not triggering state changes')
   })
 
