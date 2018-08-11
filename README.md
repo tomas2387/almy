@@ -12,7 +12,7 @@ Works in all environments and all browsers.
 
 Managing the information rendered is difficult, mostly when our apps grow large and the state is scattered across many components and the interactions between them without control. 
 
-To solve this, the current state of the art proposal is to use globalized state solutions where we can centralize and have more control over the information we have to render. Almy is a simple library that uses a pub/sub façade along with a centralized state management which makes the the side effects of changing information easy to control and eliminates the risk of getting race conditions in our applications.
+To solve this, the current state of the art solution is to use a globalized state where we can centralize and have more control over the information we have to render. Almy is a simple library that uses a pub/sub façade along with a centralized state management which makes the the side effects of changing information easy to control and eliminates the risk of getting race conditions in our applications.
 
 
 ## Installation
@@ -46,7 +46,7 @@ Including it as a script tag
 
 Using in a node environment
 ```javascript
-const almy = require('almy').almy
+const {almy} = require('almy')
 almy.subscribe('CPU_Usage', function(newCpuUsage) {
     //Do something with the new cpu usage
 })
@@ -57,7 +57,7 @@ almy.dispatch('CPU_Usage', 9000)
 
 You can dispatch objects too
 ```javascript
-const almy = require('almy').almy
+const {almy} = require('almy')
 almy.subscribe('CPU', function(cpu) {
     console.log(cpu.temperature)
 })
