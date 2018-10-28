@@ -35,10 +35,10 @@ Including it as a script tag
 ```html
 <script src="almy.js"></script>
 <script>
-  almy.dispatch('WindowWidth', 524)
+  almy.dispatch('window_width', 524)
 </script>
 <script>
-  almy.subscribe('WindowWidth', function(newWidth) {
+  almy.subscribe('window_width', function(newWidth) {
     //Do something with the new width
   })
 </script>
@@ -47,22 +47,40 @@ Including it as a script tag
 Using in a node environment
 ```javascript
 const {almy} = require('almy')
-almy.subscribe('CPU_Usage', function(newCpuUsage) {
+almy.subscribe('cpu_usage', function(newCpuUsage) {
     //Do something with the new cpu usage
 })
 
 //In some other place in your code
-almy.dispatch('CPU_Usage', 9000)
+almy.dispatch('cpu_usage', 9000)
 ```
 
-You can dispatch objects too
+You can dispatch objects:
 ```javascript
 const {almy} = require('almy')
-almy.subscribe('CPU', function(cpu) {
+almy.subscribe('cpu', function(cpu) {
     console.log(cpu.temperature)
 })
 
-almy.dispatch('CPU->temperature', 65)
+almy.dispatch('cpu->temperature', 65)
+```
+Or subscribe to objects properties and receive every change:
+```javascript
+almy.subscribe('cpu->ips', function(ips) {
+    console.log('Intructions per seconds are '+ips)
+})
+
+...
+
+almy.dispatch('cpu', {ips: 1})
+
+...
+
+almy.dispatch('cpu', {ips: 5})
+
+// This would ouput:
+// "Intructions per seconds are 1"
+// "Intructions per seconds are 5"
 ```
 
 ## Other state management libraries
