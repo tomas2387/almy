@@ -10,9 +10,7 @@
       return key ? state[key] : state
     },
     dispatch: function (key, value, doNotOptimize, doNotChainDispatch) {
-      if (!key || typeof key !== 'string') {
-        return
-      }
+      if (!key || typeof key !== 'string') return
       if (state[key] === value && !doNotOptimize) return
       state[key] = value
       if (listeners[key]) {
