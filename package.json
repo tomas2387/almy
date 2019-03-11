@@ -8,7 +8,7 @@
     "test:local": "mocha",
     "pretest": "standard --fix",
     "minify": "uglifyjs --output almy.min.js --compress --mangle -- almy.js",
-    "prepublish": "npm run minify"
+    "prepublishOnly": "npm run minify"
   },
   "repository": {
     "type": "git",
