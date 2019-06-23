@@ -1,4 +1,4 @@
-# almy
+# 🗄️ almy
 [![Version](https://badgen.net/npm/v/almy)](https://www.npmjs.com/package/almy) 
 [![Build Status](https://travis-ci.org/tomas2387/almy.svg?branch=master)](https://travis-ci.org/tomas2387/almy) 
 [![Coverage Status](https://coveralls.io/repos/github/tomas2387/almy/badge.svg?branch=master)](https://coveralls.io/github/tomas2387/almy?branch=master)
