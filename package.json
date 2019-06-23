@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --forceExit --detectOpenHandles",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-    "pretest": "prettier --write -c almy.js test/**.js",
+    "pretest": "prettier --write -c almy.js __test__/**.js",
     "minify": "uglifyjs --output almy.min.js --compress --mangle -- almy.js",
     "prepublishOnly": "npm run minify"
   },
