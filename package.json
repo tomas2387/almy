@@ -5,7 +5,7 @@
   "main": "almy.js",
   "scripts": {
     "test": "jest --forceExit --detectOpenHandles",
-    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "pretest": "prettier --write -c almy.js test/**.js",
     "minify": "uglifyjs --output almy.min.js --compress --mangle -- almy.js",
     "prepublishOnly": "npm run minify"
