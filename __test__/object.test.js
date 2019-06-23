@@ -172,4 +172,13 @@ describe('almy with objects', () => {
       'https://video.com/vid_3.mp4'
     ]);
   });
+
+  test('WhenSubscribedToArrayPositionShouldReceiveThatPosition', done => {
+    almy.dispatch('user', { favorites: { televisions: { '4k': true } } });
+
+    almy.subscribe('user->favorites', favorites => {
+      expect(favorites.televisions['4k']).toEqual(true);
+      done();
+    });
+  });
 });
