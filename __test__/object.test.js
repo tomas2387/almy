@@ -1,7 +1,7 @@
-suite('almy with objects', () => {
+describe('almy with objects', () => {
   const { almy } = require(`${__dirname}/../../almy`);
 
-  setup(() => {
+  beforeEach(() => {
     almy.create();
   });
 
@@ -32,57 +32,72 @@ suite('almy with objects', () => {
     });
   });
 
-  test('WhenListenOnPropertyOfObjectShouldReceiveThatPropertyFromTheState', done => {
-    almy.dispatch('video', {
-      src: 'https://video.com/vid.mp4',
-      volume: 45
-    });
+  test(
+    'WhenListenOnPropertyOfObjectShouldReceiveThatPropertyFromTheState',
+    done => {
+      almy.dispatch('video', {
+        src: 'https://video.com/vid.mp4',
+        volume: 45
+      });
 
-    almy.subscribe('video->volume', volume => {
-      expect(45).toEqual(volume);
-      done();
-    });
-  });
+      almy.subscribe('video->volume', volume => {
+        expect(45).toEqual(volume);
+        done();
+      });
+    }
+  );
 
-  test('WhenBeforeListenOnPropertyOfObjectShouldReceiveThatPropertyFromTheState', done => {
-    almy.subscribe('video->volume', volume => {
-      expect(45).toEqual(volume);
-      done();
-    });
+  test(
+    'WhenBeforeListenOnPropertyOfObjectShouldReceiveThatPropertyFromTheState',
+    done => {
+      almy.subscribe('video->volume', volume => {
+        expect(45).toEqual(volume);
+        done();
+      });
 
-    almy.dispatch('video', {
-      src: 'https://video.com/vid.mp4',
-      volume: 45
-    });
-  });
+      almy.dispatch('video', {
+        src: 'https://video.com/vid.mp4',
+        volume: 45
+      });
+    }
+  );
 
-  test('WhenDispatchedPropertyOfObjectShouldReceiveThatPropertyFromTheState', done => {
-    almy.dispatch('video->src', 'https://video.com/vid.mp4');
+  test(
+    'WhenDispatchedPropertyOfObjectShouldReceiveThatPropertyFromTheState',
+    done => {
+      almy.dispatch('video->src', 'https://video.com/vid.mp4');
 
-    almy.subscribe('video->src', src => {
-      expect('https://video.com/vid.mp4').toEqual(src);
-      done();
-    });
-  });
+      almy.subscribe('video->src', src => {
+        expect('https://video.com/vid.mp4').toEqual(src);
+        done();
+      });
+    }
+  );
 
-  test('WhenDispatchedPropertyOfObjectShouldReceiveTheObjectFromTheState', done => {
-    almy.dispatch('video->src', 'https://video.com/vid.mp4');
+  test(
+    'WhenDispatchedPropertyOfObjectShouldReceiveTheObjectFromTheState',
+    done => {
+      almy.dispatch('video->src', 'https://video.com/vid.mp4');
 
-    almy.subscribe('video', video => {
-      expect({ src: 'https://video.com/vid.mp4' }).toEqual(video);
-      done();
-    });
-  });
+      almy.subscribe('video', video => {
+        expect({ src: 'https://video.com/vid.mp4' }).toEqual(video);
+        done();
+      });
+    }
+  );
 
-  test('WhenDispatchedTWICETheSamePropertyValueOfObjectShouldOnlyReceiveOnce', done => {
-    almy.subscribe('video', video => {
-      expect({ src: 'https://video.com/vid_1.mp4' }).toEqual(video);
-      // done call will fail if called twice
-      done();
-    });
-    almy.dispatch('video->src', 'https://video.com/vid_1.mp4');
-    almy.dispatch('video->src', 'https://video.com/vid_1.mp4');
-  });
+  test(
+    'WhenDispatchedTWICETheSamePropertyValueOfObjectShouldOnlyReceiveOnce',
+    done => {
+      almy.subscribe('video', video => {
+        expect({ src: 'https://video.com/vid_1.mp4' }).toEqual(video);
+        // done call will fail if called twice
+        done();
+      });
+      almy.dispatch('video->src', 'https://video.com/vid_1.mp4');
+      almy.dispatch('video->src', 'https://video.com/vid_1.mp4');
+    }
+  );
 
   test('WhenDispatchedPropertyWithObjectSetShouldReceiveProperty', done => {
     let times = 0;
@@ -102,44 +117,50 @@ suite('almy with objects', () => {
     almy.dispatch('image->href', 'https://image.com/2.jpg');
   });
 
-  test('WhenReverseDispatchedPropertyWithObjectSetShouldReceiveProperty', done => {
-    let times = 0;
-    almy.subscribe('video', video => {
-      switch (times) {
-        case 0:
-          expect({ src: 'https://video.com/vid_2.mp4' }).toEqual(video);
-          break;
-        case 1:
-          expect({ src: 'https://video.com/vid_1.mp4' }).toEqual(video);
+  test(
+    'WhenReverseDispatchedPropertyWithObjectSetShouldReceiveProperty',
+    done => {
+      let times = 0;
+      almy.subscribe('video', video => {
+        switch (times) {
+          case 0:
+            expect({ src: 'https://video.com/vid_2.mp4' }).toEqual(video);
+            break;
+          case 1:
+            expect({ src: 'https://video.com/vid_1.mp4' }).toEqual(video);
+            done();
+            break;
+        }
+        times++;
+      });
+      almy.dispatch('video->src', 'https://video.com/vid_2.mp4');
+      almy.dispatch('video', { src: 'https://video.com/vid_1.mp4' });
+    }
+  );
+
+  test(
+    'WhenDispatchedAnObjectWithNotOwnedPropertiesShouldNotDispatchThoseProperties',
+    done => {
+      almy.subscribe('list->addToList', function() {
+        done(new Error('Not expected to be called'));
+      });
+      almy.subscribe('list->ownedProperty', function(value) {
+        setTimeout(() => {
+          expect(value).toEqual('mine');
           done();
-          break;
-      }
-      times++;
-    });
-    almy.dispatch('video->src', 'https://video.com/vid_2.mp4');
-    almy.dispatch('video', { src: 'https://video.com/vid_1.mp4' });
-  });
+        }, 0);
+      });
 
-  test('WhenDispatchedAnObjectWithNotOwnedPropertiesShouldNotDispatchThoseProperties', done => {
-    almy.subscribe('list->addToList', function() {
-      done(new Error('Not expected to be called'));
-    });
-    almy.subscribe('list->ownedProperty', function(value) {
-      setTimeout(() => {
-        expect(value).toEqual('mine');
-        done();
-      }, 0);
-    });
+      const List = function() {};
+      List.prototype.addToList = function(elem, value) {
+        this[elem] = value;
+      };
 
-    const List = function() {};
-    List.prototype.addToList = function(elem, value) {
-      this[elem] = value;
-    };
+      const instance = new List();
+      instance.addToList('hi', 'hello');
+      instance.ownedProperty = 'mine';
 
-    const instance = new List();
-    instance.addToList('hi', 'hello');
-    instance.ownedProperty = 'mine';
-
-    almy.dispatch('list', instance);
-  });
+      almy.dispatch('list', instance);
+    }
+  );
 });

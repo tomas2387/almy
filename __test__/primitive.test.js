@@ -1,7 +1,7 @@
-suite('almy with primitives', () => {
+describe('almy with primitives', () => {
   const { almy } = require(`${__dirname}/../../almy`);
 
-  setup(() => {
+  beforeEach(() => {
     almy.create();
   });
 
@@ -12,11 +12,14 @@ suite('almy with primitives', () => {
 
   const invalidKeysValues = ['', 0, null, true, {}];
   invalidKeysValues.forEach((invalidKey, index) => {
-    test(`[#${index}]dispatchWhenCalledWithInvalidKeyShouldNotMutateTheState[key(${invalidKey})]`, () => {
-      almy.dispatch(invalidKey, 56);
-      const beforeState = almy.state();
-      expect({}).toEqual(beforeState);
-    });
+    test(
+      `[#${index}]dispatchWhenCalledWithInvalidKeyShouldNotMutateTheState[key(${invalidKey})]`,
+      () => {
+        almy.dispatch(invalidKey, 56);
+        const beforeState = almy.state();
+        expect({}).toEqual(beforeState);
+      }
+    );
   });
 
   test('dispatchWhenCalledShouldTriggerStateChanges', () => {

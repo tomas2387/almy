@@ -4,7 +4,7 @@
   "description": "Store for a simple state management",
   "main": "almy.js",
   "scripts": {
-    "test": "jest --forceExit --detectOpenHandles --coverage",
+    "test": "jest --forceExit --detectOpenHandles",
     "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls",
     "pretest": "prettier --write -c almy.js test/**.js",
     "minify": "uglifyjs --output almy.min.js --compress --mangle -- almy.js",
@@ -28,8 +28,8 @@
   },
   "homepage": "https://github.com/tomas2387/almy#readme",
   "devDependencies": {
-    "coveralls": "^3.0.2",
-    "uglify-js": "^3.4.7",
+    "coveralls": "^3.0.4",
+    "uglify-js": "^3.6.0",
     "jest": "^24.8.0"
   },
   "jest": {
