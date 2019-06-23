@@ -4,9 +4,9 @@
   "description": "Store for a simple state management",
   "main": "almy.js",
   "scripts": {
-    "test": "nyc mocha && nyc report --reporter=text-lcov | coveralls",
-    "test:local": "mocha",
-    "pretest": "standard --fix",
+    "test": "jest --forceExit --detectOpenHandles --coverage",
+    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls",
+    "pretest": "prettier --write -c almy.js test/**.js",
     "minify": "uglifyjs --output almy.min.js --compress --mangle -- almy.js",
     "prepublishOnly": "npm run minify"
   },
@@ -28,11 +28,20 @@
   },
   "homepage": "https://github.com/tomas2387/almy#readme",
   "devDependencies": {
-    "chai": "^4.1.2",
     "coveralls": "^3.0.2",
-    "mocha": "^5.2.0",
-    "nyc": "^13.0.1",
-    "standard": "^11.0.1",
-    "uglify-js": "^3.4.7"
+    "uglify-js": "^3.4.7",
+    "jest": "^24.8.0"
+  },
+  "jest": {
+    "verbose": true,
+    "testURL": "http://localhost/",
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "dist/"
+    ],
+    "restoreMocks": true
+  },
+  "dependencies": {
+    "prettier": "^1.18.2"
   }
 }

@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.org/tomas2387/almy.svg?branch=master)](https://travis-ci.org/tomas2387/almy) 
 [![Coverage Status](https://coveralls.io/repos/github/tomas2387/almy/badge.svg?branch=master)](https://coveralls.io/github/tomas2387/almy?branch=master)
 [![dependencies Status](https://david-dm.org/tomas2387/almy/status.svg)](https://david-dm.org/tomas2387/almy)
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)    
 
 The simpliest store for managing the state in your application.    
 Works in all environments and all browsers.
