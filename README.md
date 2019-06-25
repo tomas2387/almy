@@ -32,20 +32,34 @@ _Returns the state of your application_
 
 Including it as a script tag    
 ```html
-<script src="almy.js"></script>
+<script src="./node_modules/almy/dist/almy.umd.js"></script>
 <script>
-  almy.dispatch('window_width', 524)
+  almy.almy.dispatch('window_width', 524)
 </script>
 <script>
-  almy.subscribe('window_width', function(newWidth) {
+  almy.almy.subscribe('window_width', function(newWidth) {
     //Do something with the new width
   })
 </script>
+
 ```
+Including it as a module      
+```html
+<div id="content"></div>
+<script type='module'>
+    import {almy} from './node_modules/almy/dist/almy.esm.js'
+
+    almy.subscribe('user->name', (username) => {
+        document.getElementById('content').textContent = username;
+    });
+
+    almy.dispatch('user', {id: 1, name: 'nick'})
+</script>
+```   
 
 Using in a node environment
-```javascript
-const {almy} = require('almy')
+```js
+const { almy } = require('almy')
 almy.subscribe('cpu_usage', function(newCpuUsage) {
     //Do something with the new cpu usage
 })
@@ -54,9 +68,9 @@ almy.subscribe('cpu_usage', function(newCpuUsage) {
 almy.dispatch('cpu_usage', 9000)
 ```
 
-You can dispatch objects:
-```javascript
-const {almy} = require('almy')
+You can also dispatch objects:
+```js
+const { almy } = require('almy')
 almy.subscribe('cpu', function(cpu) {
     console.log(cpu.temperature)
 })
@@ -64,11 +78,10 @@ almy.subscribe('cpu', function(cpu) {
 almy.dispatch('cpu->temperature', 65)
 ```
 Or subscribe to objects properties and receive every change:
-```javascript
+```js
 almy.subscribe('cpu->ips', function(ips) {
     console.log('Intructions per seconds are '+ips)
-})
-
+});
 ...
 
 almy.dispatch('cpu', {ips: 1})
