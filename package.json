@@ -2,18 +2,23 @@
   "name": "almy",
   "version": "1.1.2",
   "description": "Store for a simple state management",
-  "main": "almy.js",
+  "main": "dist/almy.cjs.js",
+  "module": "dist/almy.esm.js",
+  "unpkg": "dist/almy.umd.js",
   "scripts": {
-    "test": "jest --forceExit --detectOpenHandles",
+    "build": "rollup -c",
+    "test": "jest --forceExit --detectOpenHandles --coverage",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-    "pretest": "prettier --write -c almy.js __test__/**.js",
-    "minify": "uglifyjs --output almy.min.js --compress --mangle -- almy.js",
-    "prepublishOnly": "npm run minify"
+    "pretest": "prettier --write -c almy.js __test__/**.js && npm run build",
+    "prepublishOnly": "npm t"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tomas2387/almy.git"
   },
+  "files": [
+    "dist/*"
+  ],
   "keywords": [
     "store",
     "state",
@@ -29,9 +34,10 @@
   "homepage": "https://github.com/tomas2387/almy#readme",
   "devDependencies": {
     "coveralls": "^3.0.4",
-    "uglify-js": "^3.6.0",
+    "jest": "^24.8.0",
     "prettier": "^1.18.2",
-    "jest": "^24.8.0"
+    "rollup": "^1.16.2",
+    "rollup-plugin-terser": "^5.0.0"
   },
   "jest": {
     "verbose": true,

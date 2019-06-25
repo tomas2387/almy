@@ -1,5 +1,5 @@
 describe('almy with objects', () => {
-  const { almy } = require(`${__dirname}/../../almy`);
+  const { almy } = require('../..');
 
   beforeEach(() => {
     almy.create();
@@ -181,4 +181,15 @@ describe('almy with objects', () => {
       done();
     });
   });
+
+
+  // TODO: fix deep subscription for objects
+  // test('WhenSubscribedToArrayPositionShouldReceiveThatPosition', done => {
+  //   almy.dispatch('user', { favorites: { televisions: { '4k': true } } });
+  //
+  //   almy.subscribe('user->favorites->televisions', televisions => {
+  //     expect(televisions['4k']).toEqual(true);
+  //     done();
+  //   });
+  // });
 });

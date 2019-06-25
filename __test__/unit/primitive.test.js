@@ -1,5 +1,5 @@
 describe('almy with primitives', () => {
-  const { almy } = require(`${__dirname}/../../almy`);
+  const { almy } = require('../..');
 
   beforeEach(() => {
     almy.create();
