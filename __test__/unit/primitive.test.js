@@ -32,6 +32,24 @@ describe('almy with primitives', () => {
     expect({ VideoVolume: 100 }).toEqual(beforeState);
   });
 
+  test('dispatchWhenCalledWithUndefinedShouldTriggerStateChanges', () => {
+    almy.dispatch('VideoVolume', undefined);
+    const beforeState = almy.state();
+    expect({ VideoVolume: undefined }).toEqual(beforeState);
+  });
+
+  test('subscribeWhenCalledShouldBeCalledWhenStateChangesToUndefined', done => {
+    almy.subscribe('VideoVolume', value => {
+      try {
+        expect(value).toBeUndefined();
+        done();
+      } catch (e) {
+        done(e);
+      }
+    });
+    almy.dispatch('VideoVolume', undefined);
+  });
+
   test('subscribeWhenCalledShouldBeCalledWhenStateChanges', done => {
     almy.subscribe('VideoVolume', checkValueAndCall(done, 56));
     almy.dispatch('VideoVolume', 56);
