@@ -10,7 +10,12 @@ var almy = {
   },
   dispatch: function(key, value, doNotOptimize, doNotChainDispatch) {
     if (!key || typeof key !== 'string') return;
-    if (state[key] === value && !doNotOptimize) return;
+    if (
+      Object.prototype.hasOwnProperty.call(state, key) &&
+      state[key] === value &&
+      !doNotOptimize
+    )
+      return;
     state[key] = value;
     if (listeners[key]) {
       for (var i = 0; i < listeners[key].length; ++i) {
