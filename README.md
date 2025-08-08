@@ -94,27 +94,18 @@ almy.dispatch('cpu', {ips: 5})
 // "Intructions per seconds are 5"
 ```
 
-## Limitations
+## Notes
 
-Only one object deepness subscriptions are supported. Example:
+A flatten state is easier to reason and understand. However, Almy now
+supports subscribing to arbitrarily deep object paths:
 
 ````js
 almy.dispatch('user', {favorites: {televisions: {'4k': true}}})
 
-// This doesn't work
 almy.subscribe('user->favorites->televisions->4k', value => {
-    
-})
-
-// This does work
-almy.subscribe('user->favorites', favorites => {
-    if (favorites.televisions['4k']) {
-        
-    }
+    console.log(value) // true
 })
 ````
-
-A flatten state is easier to reason and understand.
 
 ## Other state management libraries
 
