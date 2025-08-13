@@ -24,7 +24,7 @@ npm install --save almy
 _Dispatches some event that happened in a key value fashion_
 -  **subscribe(key: string, callback: Function)**   
 _Subscribes to dispatched events. If someone has dispatched an event before, it calls the callback right away_
--  **state(key:?string):Object**    
+-  **state(key:?string):any**    
 _Returns the state of your application_
 
 ## Usage
@@ -78,27 +78,26 @@ almy.dispatch('cpu->temperature', 65)
 ```
 Or subscribe to objects properties and receive every change:
 ```js
-    almy.subscribe('cpu->ips', function(ips) {
-        console.log('Intructions per seconds are '+ips)
-    });
+almy.subscribe('cpu->ips', function(ips) {
+    console.log('Intructions per second are '+ips)
+});
 
-    // ...
+// ...
 
-    almy.dispatch('cpu', {ips: 1});
+almy.dispatch('cpu', {ips: 1});
 
-    // ...
+// ...
 
-    almy.dispatch('cpu', {ips: 5})
+almy.dispatch('cpu', {ips: 5})
 
-    // This would ouput:
-    // "Intructions per seconds are 1"
-    // "Intructions per seconds are 5"
+// This would ouput.
+// "Intructions per second are 1"
+// "Intructions per second are 5"
 ```
 
 ## Notes
 
-A flatten state is easier to reason and understand. However, Almy now
-supports subscribing to arbitrarily deep object paths:
+A flatten state is easier to reason and understand. However, Almy supports subscribing to arbitrarily deep object paths:
 
 ````js
 almy.dispatch('user', {favorites: {televisions: {'4k': true}}})
@@ -107,6 +106,47 @@ almy.subscribe('user->favorites->televisions->4k', value => {
     console.log(value) // true
 })
 ````
+
+# Codebase overview
+## General structure
+```
+almy/
+├── almy.js              # core source module
+├── dist/                # minified builds for different module systems
+├── __test__/unit/       # Jest unit tests
+├── rollup.config.js     # build configuration
+├── package.json         # npm metadata and scripts
+└── .github/workflows/   # CI workflows (CodeQL, npm publish, etc.)
+```
+
+## Core module (almy.js)
+Holds a singleton‑style store with two private objects: state (current values) and listeners (arrays of callbacks per key).
+
+Exports a single almy object with four methods:
+
+- create() – resets state and listeners to start fresh.
+- state(key?) – returns the entire state or the value of a specific key.
+- dispatch(key, value, doNotOptimize, doNotChainDispatch) – updates state and notifies listeners.
+- Handles nested keys using -> and dispatches individual properties when an object is supplied, skipping inherited properties and repeated values.
+- subscribe(key, callback) – registers a listener and immediately invokes it if the key already exists.
+
+## Build and tooling
+Built with Rollup (rollup.config.js) using the terser plugin to produce UMD, CJS, and ESM bundles in dist/.   
+package.json scripts include npm run build (Rollup), npm test (Jest with coverage), and Prettier formatting hooks.
+
+## Testing
+
+Unit tests in __test__/unit/ cover primitive values and object/array dispatch behavior, including immediate callbacks for existing state and one‑level nested subscriptions.
+
+## Important things to know
+
+Keys use a `key->property` convention for nested paths.
+
+dispatch avoids redundant notifications by comparing against the current state.
+
+subscribe does not support unsubscribe out of the box; listeners accumulate unless manually reset via create().
+
+The repository currently exposes only the built files (dist/*) when published to npm (files field in package.json).
 
 ## Other state management libraries
 
