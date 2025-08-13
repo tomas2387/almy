@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/tomas2387/almy/badge.svg?branch=master)](https://coveralls.io/github/tomas2387/almy?branch=master)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/almy)
 
-The simpliest store for managing the state in your application.    
+The simplest store for managing the state in your application.    
 Works in all environments and all browsers.
 
 ## Why do I need a centralized state management
