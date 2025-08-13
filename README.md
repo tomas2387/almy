@@ -11,7 +11,7 @@ Works in all environments and all browsers.
 
 Managing the information rendered is difficult, mostly when our apps grow large and the state is scattered across many components and the interactions between them without control. 
 
-To solve this, the current state of the art solution is to use a globalized state where we can centralize and have more control over the information we have to render. Almy is a simple library that uses a pub/sub façade along with a centralized state management which makes the the side effects of changing information easy to control and eliminates the risk of getting race conditions in our applications.
+To solve this, the current state-of-the-art solution is to use a globalized state where we can centralize and have more control over the information we have to render. Almy is a simple library that uses a pub/sub façade along with a centralized state management which makes the side effects of changing information easy to control and eliminates the risk of getting race conditions in our applications.
 
 ## Installation
 
@@ -78,43 +78,35 @@ almy.dispatch('cpu->temperature', 65)
 ```
 Or subscribe to objects properties and receive every change:
 ```js
-almy.subscribe('cpu->ips', function(ips) {
-    console.log('Intructions per seconds are '+ips)
-});
-...
+    almy.subscribe('cpu->ips', function(ips) {
+        console.log('Intructions per seconds are '+ips)
+    });
 
-almy.dispatch('cpu', {ips: 1})
+    // ...
 
-...
+    almy.dispatch('cpu', {ips: 1});
 
-almy.dispatch('cpu', {ips: 5})
+    // ...
 
-// This would ouput:
-// "Intructions per seconds are 1"
-// "Intructions per seconds are 5"
+    almy.dispatch('cpu', {ips: 5})
+
+    // This would ouput:
+    // "Intructions per seconds are 1"
+    // "Intructions per seconds are 5"
 ```
 
-## Limitations
+## Notes
 
-Only one object deepness subscriptions are supported. Example:
+A flatten state is easier to reason and understand. However, Almy now
+supports subscribing to arbitrarily deep object paths:
 
 ````js
 almy.dispatch('user', {favorites: {televisions: {'4k': true}}})
 
-// This doesn't work
 almy.subscribe('user->favorites->televisions->4k', value => {
-    
-})
-
-// This does work
-almy.subscribe('user->favorites', favorites => {
-    if (favorites.televisions['4k']) {
-        
-    }
+    console.log(value) // true
 })
 ````
-
-A flatten state is easier to reason and understand.
 
 ## Other state management libraries
 

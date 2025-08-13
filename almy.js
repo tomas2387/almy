@@ -1,47 +1,66 @@
 var state = {};
 var listeners = {};
 var almy = {
-  create: function() {
+  create: function () {
     state = {};
     listeners = {};
   },
-  state: function(key) {
+  state: function (key) {
     return key ? state[key] : state;
   },
-  dispatch: function(key, value, doNotOptimize, doNotChainDispatch) {
+  dispatch: function (
+    key,
+    value,
+    skipOptimization,
+    skipDownPropagation,
+    skipUpPropagation,
+  ) {
     if (!key || typeof key !== 'string') return;
     if (
       Object.prototype.hasOwnProperty.call(state, key) &&
       state[key] === value &&
-      !doNotOptimize
-    )
+      !skipOptimization
+    ) {
       return;
+    }
     state[key] = value;
     if (listeners[key]) {
       for (var i = 0; i < listeners[key].length; ++i) {
         listeners[key][i](value);
       }
     }
-    if (typeof value === 'object' && !doNotChainDispatch) {
+
+    if (typeof value === 'object' && value !== null && !skipDownPropagation) {
       for (var prop in value) {
         if (value.hasOwnProperty(prop)) {
-          this.dispatch(key + '->' + prop, value[prop], doNotOptimize, true);
+          this.dispatch(
+            key + '->' + prop,
+            value[prop],
+            skipOptimization,
+            false,
+            true,
+          );
         }
       }
     }
-    if (/->/.test(key) && !doNotChainDispatch) {
-      var parentAndChild = key.split('->');
-      var parent = parentAndChild[0];
-      var child = parentAndChild[1];
-      if (!state[parent]) state[parent] = {};
-      state[parent][child] = value;
-      this.dispatch(parent, state[parent], true, true);
+
+    if (!skipUpPropagation) {
+      var parts = key.split('->');
+      if (parts.length > 1) {
+        var child = parts.pop();
+        var parentKey = parts.join('->');
+        if (!state[parentKey] || typeof state[parentKey] !== 'object') {
+          state[parentKey] = {};
+        }
+        state[parentKey][child] = value;
+        this.dispatch(parentKey, state[parentKey], true, true, false);
+      }
     }
   },
-  subscribe: function(key, callback) {
+  subscribe: function (key, callback) {
     if (!listeners[key]) listeners[key] = [];
     listeners[key].push(callback);
     if (Object.prototype.hasOwnProperty.call(state, key)) callback(state[key]);
-  }
+  },
 };
 export { almy };
