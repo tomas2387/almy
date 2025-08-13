@@ -32,24 +32,42 @@ describe('almy with primitives', () => {
     expect({ VideoVolume: 100 }).toEqual(beforeState);
   });
 
-  test('subscribeWhenCalledShouldBeCalledWhenStateChanges', done => {
+  test('dispatchWhenCalledWithUndefinedShouldTriggerStateChanges', () => {
+    almy.dispatch('VideoVolume', undefined);
+    const beforeState = almy.state();
+    expect({ VideoVolume: undefined }).toEqual(beforeState);
+  });
+
+  test('subscribeWhenCalledShouldBeCalledWhenStateChangesToUndefined', (done) => {
+    almy.subscribe('VideoVolume', (value) => {
+      try {
+        expect(value).toBeUndefined();
+        done();
+      } catch (e) {
+        done(e);
+      }
+    });
+    almy.dispatch('VideoVolume', undefined);
+  });
+
+  test('subscribeWhenCalledShouldBeCalledWhenStateChanges', (done) => {
     almy.subscribe('VideoVolume', checkValueAndCall(done, 56));
     almy.dispatch('VideoVolume', 56);
   });
 
-  test('subscribeWhenCalledWithStateSetShouldBeCalledBackImmediately', done => {
+  test('subscribeWhenCalledWithStateSetShouldBeCalledBackImmediately', (done) => {
     almy.dispatch('VideoVolume', 56);
     almy.subscribe('VideoVolume', checkValueAndCall(done, 56));
   });
 
-  test('subscribeWhenCalledMultipleTimesShouldCallAllListeners', done => {
-    const firstListener = new Promise(resolve =>
+  test('subscribeWhenCalledMultipleTimesShouldCallAllListeners', (done) => {
+    const firstListener = new Promise((resolve) =>
       almy.subscribe('VideoVolume', checkValueAndCall(resolve, 56))
     );
-    const secondListener = new Promise(resolve =>
+    const secondListener = new Promise((resolve) =>
       almy.subscribe('VideoVolume', checkValueAndCall(resolve, 56))
     );
-    const thirdListener = new Promise(resolve =>
+    const thirdListener = new Promise((resolve) =>
       almy.subscribe('VideoVolume', checkValueAndCall(resolve, 56))
     );
 
@@ -57,11 +75,11 @@ describe('almy with primitives', () => {
 
     Promise.all([firstListener, secondListener, thirdListener])
       .then(() => done())
-      .catch(e => done(e));
+      .catch((e) => done(e));
   });
 
   function checkValueAndCall(done, shouldBe = 56) {
-    return newVolume => {
+    return (newVolume) => {
       try {
         expect(newVolume).toEqual(shouldBe);
         done();
