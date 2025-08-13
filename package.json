@@ -38,7 +38,7 @@
     "np": "^8.0.1",
     "prettier": "^1.18.2",
     "rollup": "^3.29.5",
-    "rollup-plugin-terser": "^5.0.0"
+    "@rollup/plugin-terser": "^0.4.4"
   },
   "jest": {
     "verbose": true,
