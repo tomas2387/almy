@@ -41,7 +41,7 @@ var almy = {
   subscribe: function(key, callback) {
     if (!listeners[key]) listeners[key] = [];
     listeners[key].push(callback);
-    if (state[key]) callback(state[key]);
+    if (Object.prototype.hasOwnProperty.call(state, key)) callback(state[key]);
   }
 };
 export { almy };
