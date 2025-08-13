@@ -9,9 +9,15 @@ Works in all environments and all browsers.
 
 ## Why do I need a centralized state management
 
-Managing the information rendered is difficult, mostly when our apps grow large and the state is scattered across many components and the interactions between them without control. 
+Managing the information rendered is difficult, mostly when our apps grow large
+and the state is scattered across many components and the interactions between 
+them without control. 
 
-To solve this, the current state-of-the-art solution is to use a globalized state where we can centralize and have more control over the information we have to render. Almy is a simple library that uses a pub/sub façade along with a centralized state management which makes the side effects of changing information easy to control and eliminates the risk of getting race conditions in our applications.
+To solve this, the current state-of-the-art solution is to use a globalized state
+where we can centralize and have more control over the information we have to render.
+Almy is a simple library that uses a pub/sub façade along with a centralized 
+state management which makes the side effects of changing information easy 
+to control and eliminates the risk of getting race conditions in our applications.
 
 ## Installation
 
@@ -97,7 +103,8 @@ almy.dispatch('cpu', {ips: 5})
 
 ## Notes
 
-A flatten state is easier to reason and understand. However, Almy supports subscribing to arbitrarily deep object paths:
+A flatten state is easier to reason and understand. However, Almy supports 
+subscribing to arbitrarily deep object paths:
 
 ````js
 almy.dispatch('user', {favorites: {televisions: {'4k': true}}})
@@ -108,6 +115,7 @@ almy.subscribe('user->favorites->televisions->4k', value => {
 ````
 
 # Codebase overview
+
 ## General structure
 ```
 almy/
@@ -120,23 +128,33 @@ almy/
 ```
 
 ## Core module (almy.js)
-Holds a singleton‑style store with two private objects: state (current values) and listeners (arrays of callbacks per key).
+
+Holds a singleton‑style store with two private objects: state (current values)
+and listeners (arrays of callbacks per key).
 
 Exports a single almy object with four methods:
 
 - create() – resets state and listeners to start fresh.
 - state(key?) – returns the entire state or the value of a specific key.
-- dispatch(key, value, doNotOptimize, doNotChainDispatch) – updates state and notifies listeners.
-- Handles nested keys using -> and dispatches individual properties when an object is supplied, skipping inherited properties and repeated values.
-- subscribe(key, callback) – registers a listener and immediately invokes it if the key already exists.
+- dispatch(key, value, doNotOptimize, doNotChainDispatch) – updates state and 
+notifies listeners.
+- Handles nested keys using -> and dispatches individual properties when an 
+object is supplied, skipping inherited properties and repeated values.
+- subscribe(key, callback) – registers a listener and immediately invokes it 
+if the key already exists.
 
 ## Build and tooling
-Built with Rollup (rollup.config.js) using the terser plugin to produce UMD, CJS, and ESM bundles in dist/.   
-package.json scripts include npm run build (Rollup), npm test (Jest with coverage), and Prettier formatting hooks.
+
+Built with Rollup (rollup.config.js) using the terser plugin to produce UMD, CJS,
+and ESM bundles in dist/.
+
+package.json scripts include npm run build (Rollup), npm test (Jest with coverage),
+and Prettier formatting hooks.
 
 ## Testing
 
-Unit tests in __test__/unit/ cover primitive values and object/array dispatch behavior, including immediate callbacks for existing state and one‑level nested subscriptions.
+Unit tests in __test__/unit/ cover primitive values and object/array dispatch behavior,
+including immediate callbacks for existing state and one‑level nested subscriptions.
 
 ## Important things to know
 
@@ -144,9 +162,11 @@ Keys use a `key->property` convention for nested paths.
 
 dispatch avoids redundant notifications by comparing against the current state.
 
-subscribe does not support unsubscribe out of the box; listeners accumulate unless manually reset via create().
+subscribe does not support unsubscribe out of the box; listeners accumulate unless
+manually reset via create().
 
-The repository currently exposes only the built files (dist/*) when published to npm (files field in package.json).
+The repository currently exposes only the built files (dist/*) when published to npm
+(files field in package.json).
 
 ## Other state management libraries
 
