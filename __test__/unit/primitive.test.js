@@ -67,13 +67,13 @@ describe('almy with primitives', () => {
 
   test('subscribeWhenCalledMultipleTimesShouldCallAllListeners', (done) => {
     const firstListener = new Promise((resolve) =>
-      almy.subscribe('VideoVolume', checkValueAndCall(resolve, 56))
+      almy.subscribe('VideoVolume', checkValueAndCall(resolve, 56)),
     );
     const secondListener = new Promise((resolve) =>
-      almy.subscribe('VideoVolume', checkValueAndCall(resolve, 56))
+      almy.subscribe('VideoVolume', checkValueAndCall(resolve, 56)),
     );
     const thirdListener = new Promise((resolve) =>
-      almy.subscribe('VideoVolume', checkValueAndCall(resolve, 56))
+      almy.subscribe('VideoVolume', checkValueAndCall(resolve, 56)),
     );
 
     almy.dispatch('VideoVolume', 56);

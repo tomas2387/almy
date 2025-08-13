@@ -182,19 +182,19 @@ describe('almy with objects', () => {
     });
   });
 
-  test('WhenSubscribedDeepInObjectShouldReceiveThatValue', done => {
+  test('WhenSubscribedDeepInObjectShouldReceiveThatValue', (done) => {
     almy.dispatch('user', { favorites: { televisions: { '4k': true } } });
 
-    almy.subscribe('user->favorites->televisions->4k', value => {
+    almy.subscribe('user->favorites->televisions->4k', (value) => {
       expect(value).toEqual(true);
       done();
     });
   });
 
-  test('WhenSubscribedToNestedObjectShouldReceiveThatObject', done => {
+  test('WhenSubscribedToNestedObjectShouldReceiveThatObject', (done) => {
     almy.dispatch('user', { favorites: { televisions: { '4k': true } } });
 
-    almy.subscribe('user->favorites->televisions', televisions => {
+    almy.subscribe('user->favorites->televisions', (televisions) => {
       expect(televisions['4k']).toEqual(true);
       done();
     });
