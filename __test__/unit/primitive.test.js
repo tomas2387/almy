@@ -60,7 +60,7 @@ describe('almy with primitives', () => {
     almy.subscribe('VideoVolume', checkValueAndCall(done, 56));
   });
 
-  test('subscribeWhenCalledWithStateSetToZeroShouldBeCalledBackImmediately', done => {
+  test('subscribeWhenCalledWithStateSetToZeroShouldBeCalledBackImmediately', (done) => {
     almy.dispatch('VideoVolume', 0);
     almy.subscribe('VideoVolume', checkValueAndCall(done, 0));
   });
