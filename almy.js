@@ -15,8 +15,7 @@ var almy = {
     skipDownPropagation,
     skipUpPropagation,
   ) {
-    if (!key || typeof key !== 'string' || key.indexOf('__proto__') !== -1)
-      return;
+    if (!key || typeof key !== 'string') return;
     if (
       Object.hasOwn(state, key) &&
       state[key] === value &&
@@ -59,8 +58,7 @@ var almy = {
     }
   },
   subscribe: function (key, callback) {
-    if (!key || typeof key !== 'string' || key.indexOf('__proto__') !== -1)
-      return;
+    if (!key || typeof key !== 'string') return;
     if (!listeners[key]) listeners[key] = [];
     listeners[key].push(callback);
     if (Object.hasOwn(state, key)) callback(state[key]);
