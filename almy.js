@@ -17,7 +17,7 @@ var almy = {
   ) {
     if (!key || typeof key !== 'string') return;
     if (
-      Object.prototype.hasOwnProperty.call(state, key) &&
+      Object.hasOwn(state, key) &&
       state[key] === value &&
       !skipOptimization
     ) {
@@ -32,7 +32,7 @@ var almy = {
 
     if (typeof value === 'object' && value !== null && !skipDownPropagation) {
       for (var prop in value) {
-        if (value.hasOwnProperty(prop)) {
+        if (Object.hasOwn(value, prop)) {
           this.dispatch(
             key + '->' + prop,
             value[prop],
@@ -58,9 +58,10 @@ var almy = {
     }
   },
   subscribe: function (key, callback) {
+    if (!key || typeof key !== 'string') return;
     if (!listeners[key]) listeners[key] = [];
     listeners[key].push(callback);
-    if (Object.prototype.hasOwnProperty.call(state, key)) callback(state[key]);
+    if (Object.hasOwn(state, key)) callback(state[key]);
   },
 };
 export { almy };
