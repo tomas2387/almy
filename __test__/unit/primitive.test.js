@@ -19,6 +19,13 @@ describe('almy with primitives', () => {
     });
   });
 
+  invalidKeysValues.forEach((invalidKey, index) => {
+    test(`[#${index}]subscribeWhenCalledWithInvalidKeyShouldReturnUndefined[key(${invalidKey})]`, () => {
+      const result = almy.subscribe(invalidKey, jest.fn());
+      expect(result).toBeUndefined();
+    });
+  });
+
   test('dispatchWhenCalledShouldTriggerStateChanges', () => {
     almy.dispatch('VideoVolume', 56);
     const beforeState = almy.state();
@@ -88,6 +95,8 @@ describe('almy with primitives', () => {
     const unsubscribe = almy.subscribe('VideoVolume', callback);
     almy.dispatch('VideoVolume', 56);
     expect(callback).toHaveBeenCalledTimes(1);
+    unsubscribe();
+    // calling again should be a no-op
     unsubscribe();
     almy.dispatch('VideoVolume', 100);
     expect(callback).toHaveBeenCalledTimes(1);
