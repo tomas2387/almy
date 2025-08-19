@@ -1,9 +1,9 @@
 # 🗄️ almy
 
 [![Version](https://badgen.net/npm/v/almy)](https://www.npmjs.com/package/almy)
-[![Build Status](https://travis-ci.org/tomas2387/almy.svg?branch=master)](https://travis-ci.org/tomas2387/almy)
-[![Coverage Status](https://coveralls.io/repos/github/tomas2387/almy/badge.svg?branch=master)](https://coveralls.io/github/tomas2387/almy?branch=master)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/almy)
+[![CI](https://github.com/tomas2387/almy/actions/workflows/test.yml/badge.svg)](https://github.com/tomas2387/almy/actions/workflows/test.yml)
+[![Coverage](https://codecov.io/gh/tomas2387/almy/branch/master/graph/badge.svg)](https://codecov.io/gh/tomas2387/almy)
+![install size](https://packagephobia.com/badge?p=almy@2.0.0)
 
 The simplest store for managing the state in your application.  
 Works in all environments and all browsers.
