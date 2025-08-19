@@ -1,5 +1,8 @@
 var state = {};
 var listeners = {};
+function isSafeKey(key) {
+  return key !== '__proto__' && key !== 'constructor' && key !== 'prototype';
+}
 var almy = {
   create: function () {
     state = {};
