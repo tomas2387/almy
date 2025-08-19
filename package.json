@@ -9,7 +9,7 @@
     "build": "rollup -c",
     "test": "jest --forceExit --detectOpenHandles --coverage",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-    "pretest": "prettier --write -c almy.js __test__/**/*.js && npm run build",
+    "pretest": "prettier --write almy.js __test__/**/*.js && prettier --check almy.js __test__/**/*.js && npm run build",
     "prepublishOnly": "npm t"
   },
   "repository": {
