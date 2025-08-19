@@ -185,8 +185,8 @@ dispatch avoids redundant notifications by comparing against the current state.
 subscribe returns an unsubscribe function so listeners can be removed without
 resetting the store.
 
-The repository currently exposes only the built files (dist/\*) when published to npm
-(files field in package.json).
+The repository currently exposes only the built files (dist/\*) when
+published to npm (files field in package.json).
 
 ## Other state management libraries
 
