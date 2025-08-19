@@ -1,5 +1,5 @@
 describe('almy with primitives', () => {
-  const { almy } = require('../..');
+  const almy = require('../..');
 
   beforeEach(() => {
     almy.create();

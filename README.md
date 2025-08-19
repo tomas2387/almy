@@ -47,10 +47,10 @@ Including it as a script tag
 ```html
 <script src="./node_modules/almy/dist/almy.umd.js"></script>
 <script>
-  almy.almy.dispatch('window_width', 524);
+  almy.dispatch('window_width', 524);
 </script>
 <script>
-  almy.almy.subscribe('window_width', function (newWidth) {
+  almy.subscribe('window_width', function (newWidth) {
     //Do something with the new width
   });
 </script>
@@ -61,7 +61,7 @@ Including it as a module
 ```html
 <div id="content"></div>
 <script type="module">
-  import { almy } from './node_modules/almy/dist/almy.esm.js';
+  import almy from './node_modules/almy/dist/almy.esm.js';
 
   almy.subscribe('user->name', (username) => {
     document.getElementById('content').textContent = username;
@@ -74,7 +74,7 @@ Including it as a module
 Using in a node environment
 
 ```js
-const { almy } = require('almy');
+const almy = require('almy');
 almy.subscribe('cpu_usage', function (newCpuUsage) {
   //Do something with the new cpu usage
 });
@@ -86,7 +86,7 @@ almy.dispatch('cpu_usage', 9000);
 You can also dispatch objects:
 
 ```js
-const { almy } = require('almy');
+const almy = require('almy');
 almy.subscribe('cpu', function (cpu) {
   console.log(cpu.temperature);
 });
@@ -117,7 +117,7 @@ almy.dispatch('cpu', { ips: 5 });
 Resetting the store:
 
 ```js
-const { almy } = require('almy');
+const almy = require('almy');
 
 almy.dispatch('count', 1);
 almy.create();

@@ -83,4 +83,4 @@ var almy = {
     };
   },
 };
-export { almy };
+export default almy;
