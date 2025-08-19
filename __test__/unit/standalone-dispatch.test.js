@@ -1,3 +1,5 @@
+const { describe, test, expect } = require('vitest');
+
 describe('standalone dispatch', () => {
   test('works when destructured', () => {
     const almy = require('../..');

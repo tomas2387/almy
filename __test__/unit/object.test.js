@@ -1,3 +1,5 @@
+const { describe, test, expect, beforeEach } = require('vitest');
+
 describe('almy with objects', () => {
   const almy = require('../..');
 
