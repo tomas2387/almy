@@ -7,8 +7,8 @@
   "unpkg": "dist/almy.umd.js",
   "scripts": {
     "build": "rollup -c",
-    "test": "jest --forceExit --detectOpenHandles --coverage",
-    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
+    "test": "vitest run --coverage",
+    "coveralls": "vitest run --coverage && cat ./coverage/lcov.info | coveralls",
     "pretest": "prettier --write almy.js __test__/**/*.js && prettier --check almy.js __test__/**/*.js && npm run build",
     "prepublishOnly": "npm t"
   },
@@ -34,19 +34,9 @@
   "homepage": "https://github.com/tomas2387/almy#readme",
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.4",
-    "jest": "^30.0.5",
     "prettier": "^3.6.2",
-    "rollup": "^4.46.2"
-  },
-  "jest": {
-    "verbose": true,
-    "testEnvironment": "node",
-    "testEnvironmentOptions": {
-      "url": "http://localhost/"
-    },
-    "testPathIgnorePatterns": [
-      "dist/"
-    ],
-    "restoreMocks": true
+    "rollup": "^4.46.2",
+    "vitest": "^2.1.4",
+    "@vitest/coverage-v8": "^2.1.4"
   }
 }
