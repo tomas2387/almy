@@ -28,8 +28,8 @@ npm install --save almy
 ## Methods
 -  **dispatch(key: string, value: any)**    
 _Dispatches some event that happened in a key value fashion_
--  **subscribe(key: string, callback: Function)**   
-_Subscribes to dispatched events. If someone has dispatched an event before, it calls the callback right away_
+-  **subscribe(key: string, callback: Function): Function**
+_Subscribes to dispatched events. If someone has dispatched an event before, it calls the callback right away. Returns a function to unsubscribe the listener_
 -  **state(key:?string):any**    
 _Returns the state of your application_
 
@@ -162,8 +162,8 @@ Keys use a `key->property` convention for nested paths.
 
 dispatch avoids redundant notifications by comparing against the current state.
 
-subscribe does not support unsubscribe out of the box; listeners accumulate unless
-manually reset via create().
+subscribe returns an unsubscribe function so listeners can be removed without
+resetting the store.
 
 The repository currently exposes only the built files (dist/*) when published to npm
 (files field in package.json).

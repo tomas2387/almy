@@ -83,6 +83,16 @@ describe('almy with primitives', () => {
       .catch((e) => done(e));
   });
 
+  test('unsubscribeShouldRemoveListener', () => {
+    const callback = jest.fn();
+    const unsubscribe = almy.subscribe('VideoVolume', callback);
+    almy.dispatch('VideoVolume', 56);
+    expect(callback).toHaveBeenCalledTimes(1);
+    unsubscribe();
+    almy.dispatch('VideoVolume', 100);
+    expect(callback).toHaveBeenCalledTimes(1);
+  });
+
   function checkValueAndCall(done, shouldBe = 56) {
     return (newVolume) => {
       try {
