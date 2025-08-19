@@ -13,7 +13,7 @@ updates. Only the latest major release line is supported.
 ## Reporting a Vulnerability
 
 Please report security issues through the GitHub Security Advisory system at
-https://github.com/tomas2387/almy/security/advisories/new.
+<https://github.com/tomas2387/almy/security/advisories/new>.
 
 We will acknowledge receipt of a vulnerability report within **3 business
 days**. Maintainers will provide a status update at least once every **5
