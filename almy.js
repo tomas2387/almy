@@ -8,7 +8,7 @@ var almy = {
   state: function (key) {
     return key ? state[key] : state;
   },
-  dispatch: function (
+  dispatch: function dispatch(
     key,
     value,
     skipOptimization,
@@ -33,7 +33,7 @@ var almy = {
     if (typeof value === 'object' && value !== null && !skipDownPropagation) {
       for (var prop in value) {
         if (Object.prototype.hasOwnProperty.call(value, prop)) {
-          this.dispatch(
+          dispatch(
             key + '->' + prop,
             value[prop],
             skipOptimization,
@@ -53,7 +53,7 @@ var almy = {
           state[parentKey] = {};
         }
         state[parentKey][child] = value;
-        this.dispatch(parentKey, state[parentKey], true, true, false);
+        dispatch(parentKey, state[parentKey], true, true, false);
       }
     }
   },
