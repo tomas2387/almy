@@ -1,8 +1,5 @@
 var state = {};
 var listeners = {};
-function isSafeKey(key) {
-  return key !== '__proto__' && key !== 'constructor' && key !== 'prototype';
-}
 var almy = {
   create: function () {
     state = {};
@@ -21,7 +18,13 @@ var almy = {
     if (!key || typeof key !== 'string') return;
     var parts = key.split('->');
     for (var j = 0; j < parts.length; ++j) {
-      if (!isSafeKey(parts[j])) return;
+      var part = parts[j];
+      if (
+        part === '__proto__' ||
+        part === 'constructor' ||
+        part === 'prototype'
+      )
+        return;
     }
     if (
       Object.prototype.hasOwnProperty.call(state, key) &&
