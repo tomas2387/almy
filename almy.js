@@ -55,7 +55,6 @@ var almy = {
       if (parts.length > 1) {
         var child = parts[parts.length - 1];
         var parentKey = parts.slice(0, -1).join('->');
-        if (!isSafeKey(parentKey) || !isSafeKey(child)) return;
         if (!state[parentKey] || typeof state[parentKey] !== 'object') {
           state[parentKey] = {};
         }
