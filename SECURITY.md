@@ -2,20 +2,20 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+The table below lists which versions of Almy currently receive security
+updates. Only the latest major release line is supported.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| Version | Supported |
+| ------- | --------- |
+| v2.x    | :white_check_mark: |
+| v1.x    | :x: |
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+Please report security issues through the GitHub Security Advisory system at
+<https://github.com/tomas2387/almy/security/advisories/new>.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+We will acknowledge receipt of a vulnerability report within **3 business
+days**. Maintainers will provide a status update at least once every **5
+business days** until the issue is resolved. Critical issues will be patched
+and released as soon as possible, typically within **14 days** of confirmation.
