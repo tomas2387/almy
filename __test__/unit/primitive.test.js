@@ -1,8 +1,7 @@
-const { describe, test, expect, beforeEach, vi } = require('vitest');
+import { describe, test, expect, beforeEach, vi } from 'vitest';
+import almy from '../..';
 
 describe('almy with primitives', () => {
-  const almy = require('../..');
-
   beforeEach(() => {
     almy.create();
   });
