@@ -1,5 +1,8 @@
 var state = {};
 var listeners = {};
+function isSafeKey(key) {
+  return key !== '__proto__' && key !== 'constructor' && key !== 'prototype';
+}
 var almy = {
   create: function () {
     state = {};
@@ -16,6 +19,10 @@ var almy = {
     skipUpPropagation,
   ) {
     if (!key || typeof key !== 'string') return;
+    var parts = key.split('->');
+    for (var j = 0; j < parts.length; ++j) {
+      if (!isSafeKey(parts[j])) return;
+    }
     if (
       Object.prototype.hasOwnProperty.call(state, key) &&
       state[key] === value &&
@@ -45,10 +52,10 @@ var almy = {
     }
 
     if (!skipUpPropagation) {
-      var parts = key.split('->');
       if (parts.length > 1) {
-        var child = parts.pop();
-        var parentKey = parts.join('->');
+        var child = parts[parts.length - 1];
+        var parentKey = parts.slice(0, -1).join('->');
+        if (!isSafeKey(parentKey) || !isSafeKey(child)) return;
         if (!state[parentKey] || typeof state[parentKey] !== 'object') {
           state[parentKey] = {};
         }
