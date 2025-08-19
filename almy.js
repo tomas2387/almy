@@ -62,6 +62,16 @@ var almy = {
     if (!listeners[key]) listeners[key] = [];
     listeners[key].push(callback);
     if (Object.hasOwn(state, key)) callback(state[key]);
+    return function () {
+      if (!listeners[key]) return;
+      var index = listeners[key].indexOf(callback);
+      if (index !== -1) {
+        listeners[key].splice(index, 1);
+        if (listeners[key].length === 0) {
+          delete listeners[key];
+        }
+      }
+    };
   },
 };
 export { almy };
