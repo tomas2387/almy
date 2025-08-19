@@ -30,9 +30,13 @@ npm install --save almy
 
 - **create()** – resets the store
 - **dispatch(key: string, value: any)**
-  _Dispatches some event that happened in a key value fashion_
+  _Dispatches some event that happened in a key value fashion._
+  _Keys `__proto__`, `constructor`, and `prototype` are ignored to prevent_
+  _prototype pollution._
 - **subscribe(key: string, callback: Function): Function**
-  _Subscribes to dispatched events. If someone has dispatched an event before, it calls the callback right away. Returns a function to unsubscribe the listener_
+  _Subscribes to dispatched events. If someone has dispatched an event_
+  _before, it calls the callback right away. Returns a function to_
+  _unsubscribe the listener_
 - **state(key:?string):any**
   _Returns the state of your application_
 

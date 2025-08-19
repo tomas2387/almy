@@ -16,6 +16,16 @@ var almy = {
     skipUpPropagation,
   ) {
     if (!key || typeof key !== 'string') return;
+    var parts = key.split('->');
+    for (var j = 0; j < parts.length; ++j) {
+      var part = parts[j];
+      if (
+        part === '__proto__' ||
+        part === 'constructor' ||
+        part === 'prototype'
+      )
+        return;
+    }
     if (
       Object.prototype.hasOwnProperty.call(state, key) &&
       state[key] === value &&
@@ -45,10 +55,9 @@ var almy = {
     }
 
     if (!skipUpPropagation) {
-      var parts = key.split('->');
       if (parts.length > 1) {
-        var child = parts.pop();
-        var parentKey = parts.join('->');
+        var child = parts[parts.length - 1];
+        var parentKey = parts.slice(0, -1).join('->');
         if (!state[parentKey] || typeof state[parentKey] !== 'object') {
           state[parentKey] = {};
         }

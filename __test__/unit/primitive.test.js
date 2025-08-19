@@ -26,6 +26,23 @@ describe('almy with primitives', () => {
     });
   });
 
+  const dangerousKeys = ['__proto__', 'constructor', 'prototype'];
+  dangerousKeys.forEach((unsafe) => {
+    test(`dispatchWhenCalledWithUnsafeKeyShouldNotMutateTheState[key(${unsafe})]`, () => {
+      almy.dispatch(unsafe, { polluted: true });
+      expect(Object.prototype.hasOwnProperty.call(almy.state(), unsafe)).toBe(
+        false,
+      );
+      expect({}.polluted).toBeUndefined();
+    });
+
+    test(`dispatchWhenCalledWithNestedUnsafeKeyShouldNotMutateTheState[key(${unsafe})]`, () => {
+      almy.dispatch('safe->' + unsafe, { polluted: true });
+      expect(almy.state('safe')).toBeUndefined();
+      expect({}.polluted).toBeUndefined();
+    });
+  });
+
   test('dispatchWhenCalledShouldTriggerStateChanges', () => {
     almy.dispatch('VideoVolume', 56);
     const beforeState = almy.state();
