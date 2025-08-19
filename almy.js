@@ -17,7 +17,7 @@ var almy = {
   ) {
     if (!key || typeof key !== 'string') return;
     if (
-      Object.hasOwn(state, key) &&
+      Object.prototype.hasOwnProperty.call(state, key) &&
       state[key] === value &&
       !skipOptimization
     ) {
@@ -32,7 +32,7 @@ var almy = {
 
     if (typeof value === 'object' && value !== null && !skipDownPropagation) {
       for (var prop in value) {
-        if (Object.hasOwn(value, prop)) {
+        if (Object.prototype.hasOwnProperty.call(value, prop)) {
           this.dispatch(
             key + '->' + prop,
             value[prop],
@@ -61,7 +61,7 @@ var almy = {
     if (!key || typeof key !== 'string') return;
     if (!listeners[key]) listeners[key] = [];
     listeners[key].push(callback);
-    if (Object.hasOwn(state, key)) callback(state[key]);
+    if (Object.prototype.hasOwnProperty.call(state, key)) callback(state[key]);
     return function () {
       if (!listeners[key]) return;
       var index = listeners[key].indexOf(callback);
