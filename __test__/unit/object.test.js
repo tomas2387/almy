@@ -1,3 +1,5 @@
+import { describe, test, expect, beforeEach } from 'vitest';
+
 describe('almy with objects', () => {
   const almy = require('../..');
 

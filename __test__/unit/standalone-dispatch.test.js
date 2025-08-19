@@ -1,3 +1,5 @@
+import { describe, test, expect } from 'vitest';
+
 describe('standalone dispatch', () => {
   test('works when destructured', () => {
     const almy = require('../..');
