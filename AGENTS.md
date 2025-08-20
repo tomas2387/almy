@@ -16,7 +16,8 @@ These rules apply to the entire repository unless overridden by nested `AGENTS.m
 
 ## Testing
 
-- Always run `npm test` after making changes. This builds the project and executes the Vitest test suite.
+- Always run `npm test` after making changes. This builds the 
+project and executes the Vitest test suite.
 - Add or update tests in `__test__/` for any code changes.
 
 ## Documentation
