@@ -1,6 +1,7 @@
-describe('almy with primitives', () => {
-  const almy = require('../..');
+import { describe, test, expect, beforeEach, vi } from 'vitest';
+import almy from '../../almy';
 
+describe('almy with primitives', () => {
   beforeEach(() => {
     almy.create();
   });
@@ -21,7 +22,7 @@ describe('almy with primitives', () => {
 
   invalidKeysValues.forEach((invalidKey, index) => {
     test(`[#${index}]subscribeWhenCalledWithInvalidKeyShouldReturnUndefined[key(${invalidKey})]`, () => {
-      const result = almy.subscribe(invalidKey, jest.fn());
+      const result = almy.subscribe(invalidKey, vi.fn());
       expect(result).toBeUndefined();
     });
   });
@@ -62,53 +63,59 @@ describe('almy with primitives', () => {
     expect({ VideoVolume: undefined }).toEqual(beforeState);
   });
 
-  test('subscribeWhenCalledShouldBeCalledWhenStateChangesToUndefined', (done) => {
-    almy.subscribe('VideoVolume', (value) => {
-      try {
-        expect(value).toBeUndefined();
-        done();
-      } catch (e) {
-        done(e);
-      }
+  test('subscribeWhenCalledShouldBeCalledWhenStateChangesToUndefined', async () => {
+    await new Promise((resolve, reject) => {
+      almy.subscribe('VideoVolume', (value) => {
+        try {
+          expect(value).toBeUndefined();
+          resolve();
+        } catch (e) {
+          reject(e);
+        }
+      });
+      almy.dispatch('VideoVolume', undefined);
     });
-    almy.dispatch('VideoVolume', undefined);
   });
 
-  test('subscribeWhenCalledShouldBeCalledWhenStateChanges', (done) => {
-    almy.subscribe('VideoVolume', checkValueAndCall(done, 56));
-    almy.dispatch('VideoVolume', 56);
+  test('subscribeWhenCalledShouldBeCalledWhenStateChanges', async () => {
+    await new Promise((resolve, reject) => {
+      almy.subscribe('VideoVolume', checkValueAndCall(resolve, reject, 56));
+      almy.dispatch('VideoVolume', 56);
+    });
   });
 
-  test('subscribeWhenCalledWithStateSetShouldBeCalledBackImmediately', (done) => {
-    almy.dispatch('VideoVolume', 56);
-    almy.subscribe('VideoVolume', checkValueAndCall(done, 56));
+  test('subscribeWhenCalledWithStateSetShouldBeCalledBackImmediately', async () => {
+    await new Promise((resolve, reject) => {
+      almy.dispatch('VideoVolume', 56);
+      almy.subscribe('VideoVolume', checkValueAndCall(resolve, reject, 56));
+    });
   });
 
-  test('subscribeWhenCalledWithStateSetToZeroShouldBeCalledBackImmediately', (done) => {
-    almy.dispatch('VideoVolume', 0);
-    almy.subscribe('VideoVolume', checkValueAndCall(done, 0));
+  test('subscribeWhenCalledWithStateSetToZeroShouldBeCalledBackImmediately', async () => {
+    await new Promise((resolve, reject) => {
+      almy.dispatch('VideoVolume', 0);
+      almy.subscribe('VideoVolume', checkValueAndCall(resolve, reject, 0));
+    });
   });
 
-  test('subscribeWhenCalledMultipleTimesShouldCallAllListeners', (done) => {
-    const firstListener = new Promise((resolve) =>
-      almy.subscribe('VideoVolume', checkValueAndCall(resolve, 56)),
+  test('subscribeWhenCalledMultipleTimesShouldCallAllListeners', async () => {
+    const firstListener = new Promise((resolve, reject) =>
+      almy.subscribe('VideoVolume', checkValueAndCall(resolve, reject, 56)),
     );
-    const secondListener = new Promise((resolve) =>
-      almy.subscribe('VideoVolume', checkValueAndCall(resolve, 56)),
+    const secondListener = new Promise((resolve, reject) =>
+      almy.subscribe('VideoVolume', checkValueAndCall(resolve, reject, 56)),
     );
-    const thirdListener = new Promise((resolve) =>
-      almy.subscribe('VideoVolume', checkValueAndCall(resolve, 56)),
+    const thirdListener = new Promise((resolve, reject) =>
+      almy.subscribe('VideoVolume', checkValueAndCall(resolve, reject, 56)),
     );
 
     almy.dispatch('VideoVolume', 56);
 
-    Promise.all([firstListener, secondListener, thirdListener])
-      .then(() => done())
-      .catch((e) => done(e));
+    await Promise.all([firstListener, secondListener, thirdListener]);
   });
 
   test('unsubscribeShouldRemoveListener', () => {
-    const callback = jest.fn();
+    const callback = vi.fn();
     const unsubscribe = almy.subscribe('VideoVolume', callback);
     almy.dispatch('VideoVolume', 56);
     expect(callback).toHaveBeenCalledTimes(1);
@@ -119,13 +126,13 @@ describe('almy with primitives', () => {
     expect(callback).toHaveBeenCalledTimes(1);
   });
 
-  function checkValueAndCall(done, shouldBe = 56) {
+  function checkValueAndCall(resolve, reject, shouldBe = 56) {
     return (newVolume) => {
       try {
         expect(newVolume).toEqual(shouldBe);
-        done();
+        resolve();
       } catch (e) {
-        done(e);
+        reject(e);
       }
     };
   }

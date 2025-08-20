@@ -2,7 +2,7 @@
 
 [![Version](https://badgen.net/npm/v/almy)](https://www.npmjs.com/package/almy)
 [![CI](https://github.com/tomas2387/almy/actions/workflows/test.yml/badge.svg)](https://github.com/tomas2387/almy/actions/workflows/test.yml)
-[![Coverage](https://codecov.io/gh/tomas2387/almy/branch/master/graph/badge.svg)](https://codecov.io/gh/tomas2387/almy)
+[![codecov](https://codecov.io/gh/tomas2387/almy/branch/master/graph/badge.svg)](https://codecov.io/gh/tomas2387/almy)
 ![install size](https://packagephobia.com/badge?p=almy@2.0.0)
 
 The simplest store for managing the state in your application.  
@@ -145,7 +145,7 @@ almy.subscribe('user->favorites->televisions->4k', (value) => {
 almy/
 ├── almy.js              # core source module
 ├── dist/                # minified builds for different module systems
-├── __test__/unit/       # Jest unit tests
+├── __test__/unit/       # Vitest unit tests
 ├── rollup.config.js     # build configuration
 ├── package.json         # npm metadata and scripts
 └── .github/workflows/   # CI workflows (CodeQL, npm publish, etc.)
@@ -172,7 +172,7 @@ Exports a single almy object with four methods:
 Built with Rollup (rollup.config.js) using the terser plugin to produce UMD, CJS,
 and ESM bundles in dist/.
 
-package.json scripts include npm run build (Rollup), npm test (Jest with coverage),
+package.json scripts include npm run build (Rollup), npm test (Vitest with coverage),
 and Prettier formatting hooks.
 
 ## Testing

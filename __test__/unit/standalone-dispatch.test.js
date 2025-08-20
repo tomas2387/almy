@@ -1,6 +1,8 @@
+import { describe, test, expect } from 'vitest';
+import almy from '../../almy';
+
 describe('standalone dispatch', () => {
   test('works when destructured', () => {
-    const almy = require('../..');
     almy.create();
     const { dispatch } = almy;
     dispatch('k', 1);
