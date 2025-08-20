@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest';
-import almy from '../..';
+import almy from '../../almy';
 
 describe('almy with primitives', () => {
   beforeEach(() => {

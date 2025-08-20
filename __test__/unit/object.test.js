@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach } from 'vitest';
-import almy from '../..';
+import almy from '../../almy';
 
 describe('almy with objects', () => {
   beforeEach(() => {

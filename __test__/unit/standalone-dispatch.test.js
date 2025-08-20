@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import almy from '../..';
+import almy from '../../almy';
 
 describe('standalone dispatch', () => {
   test('works when destructured', () => {
