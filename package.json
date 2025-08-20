@@ -1,6 +1,6 @@
 {
   "name": "almy",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Store for a simple state management",
   "main": "dist/almy.cjs.js",
   "module": "dist/almy.esm.js",
