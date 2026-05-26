@@ -3,7 +3,7 @@
 [![Version](https://badgen.net/npm/v/almy)](https://www.npmjs.com/package/almy)
 [![CI](https://github.com/tomas2387/almy/actions/workflows/test.yml/badge.svg)](https://github.com/tomas2387/almy/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/tomas2387/almy/branch/master/graph/badge.svg)](https://codecov.io/gh/tomas2387/almy)
-![install size](https://packagephobia.com/badge?p=almy@2.0.0)
+![install size](https://packagephobia.com/badge?p=almy@3.0.3)
 
 The simplest store for managing the state in your application.  
 Works in all environments and all browsers.
@@ -189,8 +189,8 @@ dispatch avoids redundant notifications by comparing against the current state.
 subscribe returns an unsubscribe function so listeners can be removed without
 resetting the store.
 
-The repository currently exposes only the built files (dist/\*) when
-published to npm (files field in package.json).
+The repository exposes the built files (dist/\*), README.md, and LICENSE
+when published to npm (files field in package.json).
 
 ## Other state management libraries
 
