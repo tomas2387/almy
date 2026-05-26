@@ -1,6 +1,6 @@
 {
   "name": "almy",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Store for a simple state management",
   "main": "dist/almy.cjs.js",
   "module": "dist/almy.esm.js",
@@ -16,7 +16,9 @@
     "url": "git+https://github.com/tomas2387/almy.git"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "README.md",
+    "LICENSE"
   ],
   "keywords": [
     "store",
