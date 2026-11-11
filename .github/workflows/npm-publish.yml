@@ -1,4 +1,6 @@
-# Runs the tests and publishes the package to npm when a release is created
+# Runs the tests and publishes the package to npm when a release is created.
+# Publishing uses npm Trusted Publishing (OIDC), configured on npmjs.com for this workflow,
+# and stages the version so it is only released after a maintainer approves it with 2FA.
 
 name: Node.js Package
 
@@ -24,6 +26,10 @@ jobs:
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # Trusted Publishing: npm authenticates with GitHub OIDC, no token needed
+      id-token: write
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -35,6 +41,6 @@ jobs:
       - run: npm run build
       # Only dist/ needs to be published: drop dev-only fields to keep the package small
       - run: npm pkg delete scripts devDependencies allowScripts
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # Staged publishing: the version stays pending until a maintainer approves it
+      # with 2FA on npmjs.com (or `npm stage approve <id>`)
+      - run: npm stage publish

@@ -56,3 +56,7 @@ depth, and standalone (destructured) usage.
   (`files` field in `package.json`), so keep the README focused on users.
 - The publish workflow strips `scripts`, `devDependencies` and `allowScripts`
   from the published `package.json` to keep the package small.
+- Releases are published to npm by creating a GitHub release. The workflow uses
+  npm Trusted Publishing (OIDC), so no npm token is stored in the repository,
+  and stages the version (`npm stage publish`). It only becomes public after a
+  maintainer approves it with 2FA on npmjs.com or with `npm stage approve <id>`.
