@@ -5,6 +5,7 @@
   "main": "dist/almy.umd.js",
   "module": "dist/almy.esm.js",
   "unpkg": "dist/almy.umd.js",
+  "types": "almy.d.ts",
   "scripts": {
     "build": "rollup -c",
     "test": "vitest run --coverage",
@@ -18,6 +19,7 @@
   },
   "files": [
     "dist/*",
+    "almy.d.ts",
     "README.md",
     "LICENSE"
   ],
@@ -41,6 +43,7 @@
     "@vitest/coverage-v8": "^5.1.0",
     "prettier": "^3.9.10",
     "rollup": "^4.68.2",
+    "typescript": "^7.0.2",
     "vitest": "^5.1.0"
   },
   "allowScripts": {

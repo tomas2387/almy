@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- TypeScript types (`almy.d.ts`)
+
 ## [4.0.0] - 2026-11-11
 
 ### Breaking

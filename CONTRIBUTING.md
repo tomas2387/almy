@@ -5,10 +5,13 @@
 ```
 almy/
 ├── almy.js              # core source module
+├── almy.d.ts            # hand-written TypeScript types (published)
 ├── dist/                # minified builds for different module systems (generated)
 ├── __test__/unit/       # Vitest unit tests
+├── __test__/types.test-d.ts # type tests for almy.d.ts
 ├── rollup.config.mjs    # build configuration
 ├── vitest.config.mts    # test configuration
+├── tsconfig.types.json  # TypeScript config used only by the type tests
 ├── package.json         # npm metadata and scripts
 └── .github/workflows/   # CI workflows (tests, CodeQL, npm publish)
 ```
@@ -46,13 +49,16 @@ Unit tests in `__test__/unit/` cover primitive values, object/array dispatch
 behavior, immediate callbacks for existing state, nested subscriptions at any
 depth, and standalone (destructured) usage.
 
+`almy.d.ts` is written by hand. `npm test` also type-checks
+`__test__/types.test-d.ts`, so update both whenever the public API changes.
+
 ## Important things to know
 
 - Keys use a `key->property` convention for nested paths.
 - `dispatch` avoids redundant notifications by comparing against the current state.
 - `subscribe` returns an unsubscribe function so listeners can be removed without
   resetting the store.
-- Only `dist/*`, `README.md`, `LICENSE` and `package.json` are published to npm
+- Only `dist/*`, `almy.d.ts`, `README.md`, `LICENSE` and `package.json` are published to npm
   (`files` field in `package.json`), so keep the README focused on users.
 - The publish workflow strips `scripts`, `devDependencies` and `allowScripts`
   from the published `package.json` to keep the package small.
