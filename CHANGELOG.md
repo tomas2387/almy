@@ -28,6 +28,7 @@ All notable changes to this project will be documented in this file.
 - Bump vitest and @vitest/coverage-v8 to 5.1.0
 - Bump @rollup/plugin-terser to 1.0.2, rollup to 4.68.2 and prettier to 3.9.10
 - Add @stryker-mutator/core and @stryker-mutator/vitest-runner 10.1.1
+- Override minimatch (^11.0.7) and qs (^6.17.1), transitive dependencies of Stryker, to fix moderate vulnerabilities
 
 ## [3.0.3] - 2026-05-26
 
