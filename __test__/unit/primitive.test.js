@@ -42,6 +42,26 @@ describe('almy with primitives', () => {
       expect(almy.state('safe')).toBeUndefined();
       expect({}.polluted).toBeUndefined();
     });
+
+    test(`dispatchWhenCalledWithUnsafeParentKeyShouldNotMutateThePrototype[key(${unsafe})]`, () => {
+      almy.dispatch(unsafe + '->polluted', true);
+      expect(Object.prototype.hasOwnProperty.call(almy.state(), unsafe)).toBe(
+        false,
+      );
+      expect({}.polluted).toBeUndefined();
+    });
+
+    test(`dispatchWhenCalledWithObjectWithOwnUnsafePropertyShouldNotMutateThePrototype[key(${unsafe})]`, () => {
+      almy.dispatch('safe', JSON.parse(`{"${unsafe}": {"polluted": true}}`));
+      expect(almy.state('safe->' + unsafe)).toBeUndefined();
+      expect({}.polluted).toBeUndefined();
+    });
+  });
+
+  test('dispatchWhenParentKeyMatchesAnInheritedPropertyShouldCreateAnOwnObject', () => {
+    almy.dispatch('toString->value', 1);
+    expect(almy.state('toString')).toEqual({ value: 1 });
+    expect(typeof {}.toString).toBe('function');
   });
 
   test('dispatchWhenCalledShouldTriggerStateChanges', () => {

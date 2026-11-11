@@ -55,11 +55,14 @@ var almy = {
       if (parts.length > 1) {
         var child = parts[parts.length - 1];
         var parentKey = parts.slice(0, -1).join('->');
-        if (!state[parentKey] || typeof state[parentKey] !== 'object') {
-          state[parentKey] = {};
+        // Only reuse own properties so an inherited one (e.g. Object.prototype)
+        // can never be the target of the assignment below.
+        var parent = has.call(state, parentKey) ? state[parentKey] : null;
+        if (!parent || typeof parent !== 'object') {
+          parent = state[parentKey] = {};
         }
-        state[parentKey][child] = value;
-        dispatch(parentKey, state[parentKey], true, true, false);
+        parent[child] = value;
+        dispatch(parentKey, parent, true, true, false);
       }
     }
   },

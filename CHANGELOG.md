@@ -13,6 +13,9 @@ All notable changes to this project will be documented in this file.
 - Run CodeQL on the master branch
 - Fix install size badge in README
 
+### Security
+- Harden nested key assignment against prototype pollution so CodeQL recognizes the guard (alert #4, not exploitable in practice) and add regression tests
+
 ### Dependencies
 - Bump vitest and @vitest/coverage-v8 to 5.1.0
 - Bump @rollup/plugin-terser to 1.0.2, rollup to 4.68.2 and prettier to 3.9.10
