@@ -137,60 +137,9 @@ almy.subscribe('user->favorites->televisions->4k', (value) => {
 });
 ```
 
-# Codebase overview
+## Contributing
 
-## General structure
-
-```
-almy/
-├── almy.js              # core source module
-├── dist/                # minified builds for different module systems
-├── __test__/unit/       # Vitest unit tests
-├── rollup.config.js     # build configuration
-├── package.json         # npm metadata and scripts
-└── .github/workflows/   # CI workflows (CodeQL, npm publish, etc.)
-```
-
-## Core module (almy.js)
-
-Holds a singleton‑style store with two private objects: state (current values)
-and listeners (arrays of callbacks per key).
-
-Exports a single almy object with four methods:
-
-- create() – resets state and listeners to start fresh.
-- state(key?) – returns the entire state or the value of a specific key.
-- dispatch(key, value, doNotOptimize, doNotChainDispatch) – updates state and
-  notifies listeners.
-- Handles nested keys using -> and dispatches individual properties when an
-  object is supplied, skipping inherited properties and repeated values.
-- subscribe(key, callback) – registers a listener and immediately invokes it
-  if the key already exists.
-
-## Build and tooling
-
-Built with Rollup (rollup.config.js) using the terser plugin to produce UMD, CJS,
-and ESM bundles in dist/.
-
-package.json scripts include npm run build (Rollup), npm test (Vitest with coverage),
-and Prettier formatting hooks.
-
-## Testing
-
-Unit tests in **test**/unit/ cover primitive values and object/array dispatch behavior,
-including immediate callbacks for existing state and one‑level nested subscriptions.
-
-## Important things to know
-
-Keys use a `key->property` convention for nested paths.
-
-dispatch avoids redundant notifications by comparing against the current state.
-
-subscribe returns an unsubscribe function so listeners can be removed without
-resetting the store.
-
-The repository exposes the built files (dist/\*), README.md, and LICENSE
-when published to npm (files field in package.json).
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Other state management libraries
 
