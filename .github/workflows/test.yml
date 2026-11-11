@@ -23,6 +23,9 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run mutation
+        env:
+          # Upload the report (README badge) only for pushes to master
+          STRYKER_DASHBOARD_API_KEY: ${{ github.event_name == 'push' && secrets.STRYKER_DASHBOARD_API_KEY || '' }}
       - uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
