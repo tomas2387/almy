@@ -3,7 +3,7 @@
 [![Version](https://badgen.net/npm/v/almy)](https://www.npmjs.com/package/almy)
 [![CI](https://github.com/tomas2387/almy/actions/workflows/test.yml/badge.svg)](https://github.com/tomas2387/almy/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/tomas2387/almy/branch/master/graph/badge.svg)](https://codecov.io/gh/tomas2387/almy)
-![install size](https://packagephobia.com/badge?p=almy@3.0.3)
+[![install size](https://badgen.net/packagephobia/install/almy)](https://packagephobia.com/result?p=almy)
 
 The simplest store for managing the state in your application.  
 Works in all environments and all browsers.
