@@ -15,8 +15,9 @@ almy/
 
 ## Core module (almy.js)
 
-Holds a singleton‑style store with two private objects: `state` (current values)
-and `listeners` (arrays of callbacks per key).
+Holds a singleton‑style store with two private prototype‑less objects
+(`Object.create(null)`): `state` (current values) and `listeners` (arrays of
+callbacks per key).
 
 Exports a single `almy` object with four methods:
 
@@ -36,6 +37,8 @@ bundles in `dist/`. Do not edit `dist/` by hand.
 
 - `npm run build` – builds the bundles with Rollup.
 - `npm test` – formats with Prettier, builds, and runs Vitest with coverage.
+- `npm run mutation` – runs Stryker mutation testing on `almy.js`. CI fails if
+  any mutant survives, so every new behavior needs a test that pins it down.
 
 ## Testing
 

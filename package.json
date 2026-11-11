@@ -9,7 +9,8 @@
     "build": "rollup -c",
     "test": "vitest run --coverage",
     "pretest": "prettier --write almy.js __test__/**/*.js && prettier --check almy.js __test__/**/*.js && npm run build",
-    "prepublishOnly": "npm t"
+    "prepublishOnly": "npm t",
+    "mutation": "stryker run"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,8 @@
   "homepage": "https://github.com/tomas2387/almy#readme",
   "devDependencies": {
     "@rollup/plugin-terser": "^1.0.2",
+    "@stryker-mutator/core": "^10.1.1",
+    "@stryker-mutator/vitest-runner": "^10.1.1",
     "@vitest/coverage-v8": "^5.1.0",
     "prettier": "^3.9.10",
     "rollup": "^4.68.2",

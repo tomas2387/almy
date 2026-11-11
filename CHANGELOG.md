@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [4.0.0] - 2026-11-11
 
 ### Breaking
+- `almy.state()` now returns a prototype-less object (`Object.create(null)`), so it no longer inherits methods such as `hasOwnProperty`. Use `Object.prototype.hasOwnProperty.call(state, key)` or `key in state` instead.
 - Remove `dist/almy.cjs.js`. `require('almy')` keeps working: `main` now points to the UMD build, which supports CommonJS. Only direct imports of `almy/dist/almy.cjs.js` need to change to `almy` or `almy/dist/almy.umd.js`.
 
 ### Changed
@@ -14,11 +15,19 @@ All notable changes to this project will be documented in this file.
 - Fix install size badge in README
 
 ### Security
-- Harden nested key assignment against prototype pollution so CodeQL recognizes the guard (alert #4, not exploitable in practice) and add regression tests
+- Store state and listeners in prototype-less objects, fixing CodeQL alert #4 (prototype-polluting assignment)
+
+### Fixed
+- `subscribe` no longer throws for keys that match inherited properties (`toString`, `hasOwnProperty`, `__proto__`)
+- `state(key)` no longer returns inherited properties such as `Object.prototype` or `toString`
+
+### Testing
+- Add Stryker mutation testing (100% mutation score, enforced in CI) and reach 100% branch coverage
 
 ### Dependencies
 - Bump vitest and @vitest/coverage-v8 to 5.1.0
 - Bump @rollup/plugin-terser to 1.0.2, rollup to 4.68.2 and prettier to 3.9.10
+- Add @stryker-mutator/core and @stryker-mutator/vitest-runner 10.1.1
 
 ## [3.0.3] - 2026-05-26
 

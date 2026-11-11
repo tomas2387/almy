@@ -4,3 +4,5 @@ coverage
 .nyc_output
 .coveralls.yml
 .DS_Store
+reports
+.stryker-tmp

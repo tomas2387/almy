@@ -22,6 +22,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
+      - run: npm run mutation
       - uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

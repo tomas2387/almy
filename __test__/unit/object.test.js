@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach } from 'vitest';
+import { describe, test, expect, beforeEach, vi } from 'vitest';
 import almy from '../../almy';
 
 describe('almy with objects', () => {
@@ -251,5 +251,32 @@ describe('almy with objects', () => {
         resolve();
       });
     });
+  });
+
+  test('WhenDispatchedDeepPropertyShouldUpdateEveryAncestor', () => {
+    almy.dispatch('a->b->c', 1);
+    expect(almy.state('a->b')).toEqual({ c: 1 });
+    expect(almy.state('a')).toEqual({ b: { c: 1 } });
+  });
+
+  test('WhenDispatchedPropertyShouldKeepTheOtherPropertiesOfTheParent', () => {
+    almy.dispatch('user', { name: 'nick', age: 30 });
+    almy.dispatch('user->name', 'bob');
+    expect(almy.state('user')).toEqual({ name: 'bob', age: 30 });
+  });
+
+  test('WhenDispatchedPropertyOfAPrimitiveShouldReplaceItWithAnObject', () => {
+    almy.dispatch('user', 5);
+    almy.dispatch('user->name', 'bob');
+    expect(almy.state('user')).toEqual({ name: 'bob' });
+  });
+
+  test('WhenDispatchedPropertyShouldNotNotifyTheSiblingProperties', () => {
+    almy.dispatch('user', { name: 'nick', age: 30 });
+    const ageListener = vi.fn();
+    almy.subscribe('user->age', ageListener);
+    almy.dispatch('user->name', 'bob');
+    expect(ageListener).toHaveBeenCalledTimes(1);
+    expect(ageListener).toHaveBeenCalledWith(30);
   });
 });

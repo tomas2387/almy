@@ -64,6 +64,27 @@ describe('almy with primitives', () => {
     expect(typeof {}.toString).toBe('function');
   });
 
+  const inheritedKeys = ['toString', 'hasOwnProperty', '__proto__'];
+  inheritedKeys.forEach((inherited) => {
+    test(`stateWhenKeyMatchesAnInheritedPropertyShouldReturnUndefined[key(${inherited})]`, () => {
+      expect(almy.state(inherited)).toBeUndefined();
+    });
+
+    test(`subscribeWhenKeyMatchesAnInheritedPropertyShouldNotThrow[key(${inherited})]`, () => {
+      const callback = vi.fn();
+      expect(() => almy.subscribe(inherited, callback)).not.toThrow();
+      expect(callback).not.toHaveBeenCalled();
+    });
+  });
+
+  test('dispatchWhenKeyMatchesAnInheritedPropertyShouldNotifySubscribers', () => {
+    const callback = vi.fn();
+    almy.subscribe('toString', callback);
+    almy.dispatch('toString', 1);
+    expect(callback).toHaveBeenCalledWith(1);
+    expect(almy.state('toString')).toBe(1);
+  });
+
   test('dispatchWhenCalledShouldTriggerStateChanges', () => {
     almy.dispatch('VideoVolume', 56);
     const beforeState = almy.state();
@@ -144,6 +165,44 @@ describe('almy with primitives', () => {
     unsubscribe();
     almy.dispatch('VideoVolume', 100);
     expect(callback).toHaveBeenCalledTimes(1);
+  });
+
+  test('unsubscribeShouldOnlyRemoveItsOwnListener', () => {
+    const first = vi.fn();
+    const second = vi.fn();
+    const third = vi.fn();
+    almy.subscribe('VideoVolume', first);
+    const unsubscribeSecond = almy.subscribe('VideoVolume', second);
+    almy.subscribe('VideoVolume', third);
+    unsubscribeSecond();
+    almy.dispatch('VideoVolume', 56);
+    expect(first).toHaveBeenCalledWith(56);
+    expect(second).not.toHaveBeenCalled();
+    expect(third).toHaveBeenCalledWith(56);
+  });
+
+  test('unsubscribeWhenCalledTwiceShouldNotRemoveOtherListeners', () => {
+    const first = vi.fn();
+    const second = vi.fn();
+    const unsubscribeFirst = almy.subscribe('VideoVolume', first);
+    almy.subscribe('VideoVolume', second);
+    unsubscribeFirst();
+    unsubscribeFirst();
+    almy.dispatch('VideoVolume', 56);
+    expect(first).not.toHaveBeenCalled();
+    expect(second).toHaveBeenCalledWith(56);
+  });
+
+  test('unsubscribeAfterCreateShouldBeANoOp', () => {
+    const callback = vi.fn();
+    const unsubscribe = almy.subscribe('VideoVolume', callback);
+    almy.create();
+    expect(() => unsubscribe()).not.toThrow();
+  });
+
+  test('dispatchWhenCalledWithAStringShouldNotDispatchItsCharacters', () => {
+    almy.dispatch('name', 'ab');
+    expect(almy.state()).toEqual({ name: 'ab' });
   });
 
   function checkValueAndCall(resolve, reject, shouldBe = 56) {
