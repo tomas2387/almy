@@ -34,10 +34,13 @@
   },
   "homepage": "https://github.com/tomas2387/almy#readme",
   "devDependencies": {
-    "@rollup/plugin-terser": "^1.0.0",
-    "prettier": "^3.6.2",
-    "rollup": "^4.46.2",
-    "vitest": "^4.0.0",
-    "@vitest/coverage-v8": "^4.0.10"
+    "@rollup/plugin-terser": "^1.0.2",
+    "@vitest/coverage-v8": "^5.1.0",
+    "prettier": "^3.9.10",
+    "rollup": "^4.68.2",
+    "vitest": "^5.1.0"
+  },
+  "allowScripts": {
+    "fsevents@2.3.3": true
   }
 }
