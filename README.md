@@ -3,8 +3,10 @@
 [![Version](https://badgen.net/npm/v/almy)](https://www.npmjs.com/package/almy)
 [![CI](https://github.com/tomas2387/almy/actions/workflows/test.yml/badge.svg)](https://github.com/tomas2387/almy/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/tomas2387/almy/branch/master/graph/badge.svg)](https://codecov.io/gh/tomas2387/almy)
-[![install size](https://badgen.net/packagephobia/install/almy)](https://packagephobia.com/result?p=almy)
 [![Mutation testing](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Ftomas2387%2Falmy%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/tomas2387/almy/master)
+[![Types](https://badgen.net/npm/types/almy)](https://www.npmjs.com/package/almy)
+[![Bundle size](https://deno.bundlejs.com/badge?q=almy)](https://bundlejs.com/?q=almy)
+[![License](https://badgen.net/npm/license/almy)](LICENSE)
 
 The simplest store for managing the state in your application.  
 Works in all environments and all browsers.
@@ -111,6 +113,18 @@ const almy = require('almy');
 almy.dispatch('count', 1);
 almy.create();
 almy.state('count'); // undefined
+```
+
+## TypeScript
+
+Types are included. `state` and `subscribe` accept the type of the value:
+
+```ts
+import almy from 'almy';
+
+almy.subscribe<number>('count', (count) => console.log(count + 1));
+
+const count = almy.state<number>('count'); // number | undefined
 ```
 
 ## Notes

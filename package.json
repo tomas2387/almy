@@ -28,7 +28,8 @@
     "state",
     "manager",
     "js",
-    "javascript"
+    "javascript",
+    "typescript"
   ],
   "author": "@tomas2387",
   "license": "MIT",
@@ -52,5 +53,6 @@
   "overrides": {
     "minimatch": "^11.0.7",
     "qs": "^6.17.1"
-  }
+  },
+  "sideEffects": false
 }

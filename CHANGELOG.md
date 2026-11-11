@@ -2,10 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [4.1.0] - 2026-11-11
 
 ### Added
 - TypeScript types (`almy.d.ts`)
+- `"sideEffects": false`, so bundlers can drop almy when it is not used
+
+### Changed
+- README: TypeScript section, and Types, Bundle size and License badges instead of the install size badge
 
 ## [4.0.0] - 2026-11-11
 
