@@ -55,14 +55,19 @@ var almy = {
       if (parts.length > 1) {
         var child = parts[parts.length - 1];
         var parentKey = parts.slice(0, -1).join('->');
-        // Only reuse own properties so an inherited one (e.g. Object.prototype)
-        // can never be the target of the assignment below.
-        var parent = has.call(state, parentKey) ? state[parentKey] : null;
-        if (!parent || typeof parent !== 'object') {
-          parent = state[parentKey] = {};
+        // Already rejected above; repeated here so static analysis (CodeQL)
+        // can see the guard right before the nested assignment.
+        if (
+          child === '__proto__' ||
+          child === 'constructor' ||
+          child === 'prototype'
+        )
+          return;
+        if (!state[parentKey] || typeof state[parentKey] !== 'object') {
+          state[parentKey] = {};
         }
-        parent[child] = value;
-        dispatch(parentKey, parent, true, true, false);
+        state[parentKey][child] = value;
+        dispatch(parentKey, state[parentKey], true, true, false);
       }
     }
   },
