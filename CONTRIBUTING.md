@@ -31,8 +31,8 @@ Exports a single `almy` object with four methods:
 
 ## Build and tooling
 
-Built with Rollup (`rollup.config.mjs`) using the terser plugin to produce UMD,
-CJS and ESM bundles in `dist/`. Do not edit `dist/` by hand.
+Built with Rollup (`rollup.config.mjs`) using the terser plugin to produce UMD and ESM
+bundles in `dist/`. Do not edit `dist/` by hand.
 
 - `npm run build` – builds the bundles with Rollup.
 - `npm test` – formats with Prettier, builds, and runs Vitest with coverage.
@@ -51,3 +51,5 @@ depth, and standalone (destructured) usage.
   resetting the store.
 - Only `dist/*`, `README.md`, `LICENSE` and `package.json` are published to npm
   (`files` field in `package.json`), so keep the README focused on users.
+- The publish workflow strips `scripts`, `devDependencies` and `allowScripts`
+  from the published `package.json` to keep the package small.

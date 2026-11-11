@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.0.0] - 2026-11-11
+
+### Breaking
+- Remove `dist/almy.cjs.js`. `require('almy')` keeps working: `main` now points to the UMD build, which supports CommonJS. Only direct imports of `almy/dist/almy.cjs.js` need to change to `almy` or `almy/dist/almy.umd.js`.
+
+### Changed
+- Reduce published package size (10.8 kB → 6.6 kB): move contributor docs to CONTRIBUTING.md, trim README, strip dev-only fields from the published package.json, and minify better
+- Update CI to Node 26 and latest GitHub Actions versions
+- Run CodeQL on the master branch
+- Fix install size badge in README
+
+### Dependencies
+- Bump vitest and @vitest/coverage-v8 to 5.1.0
+- Bump @rollup/plugin-terser to 1.0.2, rollup to 4.68.2 and prettier to 3.9.10
+
 ## [3.0.3] - 2026-05-26
 
 ### Fixed

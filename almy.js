@@ -1,5 +1,6 @@
 var state = {};
 var listeners = {};
+var has = Object.prototype.hasOwnProperty;
 var almy = {
   create: function () {
     state = {};
@@ -26,11 +27,7 @@ var almy = {
       )
         return;
     }
-    if (
-      Object.prototype.hasOwnProperty.call(state, key) &&
-      state[key] === value &&
-      !skipOptimization
-    ) {
+    if (has.call(state, key) && state[key] === value && !skipOptimization) {
       return;
     }
     state[key] = value;
@@ -42,7 +39,7 @@ var almy = {
 
     if (typeof value === 'object' && value !== null && !skipDownPropagation) {
       for (var prop in value) {
-        if (Object.prototype.hasOwnProperty.call(value, prop)) {
+        if (has.call(value, prop)) {
           dispatch(
             key + '->' + prop,
             value[prop],
@@ -70,7 +67,7 @@ var almy = {
     if (!key || typeof key !== 'string') return;
     if (!listeners[key]) listeners[key] = [];
     listeners[key].push(callback);
-    if (Object.prototype.hasOwnProperty.call(state, key)) callback(state[key]);
+    if (has.call(state, key)) callback(state[key]);
     return function () {
       if (!listeners[key]) return;
       var index = listeners[key].indexOf(callback);

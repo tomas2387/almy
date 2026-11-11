@@ -13,13 +13,6 @@ export default [{
       esModule: false
     },
     {
-      file: 'dist/almy.cjs.js',
-      format: 'cjs',
-      compact: true,
-      strict: false,
-      esModule: false
-    },
-    {
       file: 'dist/almy.esm.js',
       format: 'esm',
       compact: true

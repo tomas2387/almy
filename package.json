@@ -1,8 +1,8 @@
 {
   "name": "almy",
-  "version": "3.0.3",
+  "version": "4.0.0",
   "description": "Store for a simple state management",
-  "main": "dist/almy.cjs.js",
+  "main": "dist/almy.umd.js",
   "module": "dist/almy.esm.js",
   "unpkg": "dist/almy.umd.js",
   "scripts": {

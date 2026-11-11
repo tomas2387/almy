@@ -8,18 +8,6 @@
 The simplest store for managing the state in your application.  
 Works in all environments and all browsers.
 
-## Why do I need a centralized state management
-
-Managing the information rendered is difficult, mostly when our apps grow large
-and the state is scattered across many components and the interactions between
-them without control.
-
-To solve this, the current state-of-the-art solution is to use a globalized state
-where we can centralize and have more control over the information we have to render.
-Almy is a simple library that uses a pub/sub façade along with a centralized
-state management which makes the side effects of changing information easy
-to control and eliminates the risk of getting race conditions in our applications.
-
 ## Installation
 
 ```bash
@@ -140,14 +128,3 @@ almy.subscribe('user->favorites->televisions->4k', (value) => {
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Other state management libraries
-
-- Vuex: https://github.com/vuejs/vuex
-- Redux: https://github.com/reduxjs/redux
-- Flux: https://github.com/facebook/flux
-
-## References
-
-Worlds: Controlling the Scope of Side Effects
-http://www.vpri.org/pdf/tr2011001_final_worlds.pdf
